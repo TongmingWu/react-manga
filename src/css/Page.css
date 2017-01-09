@@ -1,0 +1,96 @@
+.con-page {
+    position: relative;
+    background: black;
+}
+
+.back {
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-top: .8rem;
+    margin-left: 1rem;
+}
+
+.chapter-name {
+    color: white;
+    display: inline-block;
+    position: absolute;
+    font-size: 1.6rem;
+    padding-top: 1.2rem;
+    left: 4.5rem;
+}
+
+.page-top {
+    position: fixed;
+    top: 0;
+    height: 4rem;
+    width: 100%;
+    background: #31271a;
+    opacity: .5;
+    visibility: hidden;
+}
+
+.page-bottom {
+    position: fixed;
+    bottom: 0;
+    height: 6rem;
+    width: 100%;
+    background: #31271a;
+    opacity: .5;
+    visibility: hidden;
+}
+
+.shown {
+    visibility: visible;
+}
+
+.page-i {
+    background: #ccc;
+    margin-bottom: .2rem;
+}
+
+.progress {
+    margin-left: 1rem;
+    border-radius: 50%;
+    width: 70%;
+    height: .5rem;
+    position: absolute;
+    top: 2.4rem;
+}
+
+.btn-ch {
+    width: 3.2rem;
+    height: 3.2rem;
+    /*background: #000;*/
+    display: inline-block;
+    color: black;
+}
+
+.btn-ch span{
+    visibility: hidden;
+}
+
+.page-bottom-inner {
+    position: relative;
+}
+
+.pre-ch {
+    position: absolute;
+    top: 1rem;
+    right: 15%;
+    background: url(../images/page_bg.png) -20px -100px;
+}
+
+.next-ch {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: url(../images/page_bg.png) -20px -20px;
+}
+
+progress::-webkit-progress-bar {
+    background: black;
+}
+
+progress::-webkit-progress-value {
+    background: #ff960c;
+}

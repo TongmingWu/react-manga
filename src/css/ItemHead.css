@@ -1,0 +1,38 @@
+.item-head {
+    position: relative;
+    /*clear: both;*/
+    height: 3.2rem;
+    padding-top: .5rem;
+    margin-left: .3rem;
+}
+
+.icon {
+    margin: .5rem;
+    padding-top: .3rem;
+    height: 2rem;
+    width: 2rem;
+}
+
+.title {
+    position: absolute;
+    line-height: 1.5rem;
+    margin-left: .3rem;
+    height: 1.5rem;
+    font-size: 1.5rem;
+    top: 1.6rem;
+    color: #0b0f03;
+}
+
+.btn-enter {
+    right: .3rem;
+    font-size: 1rem;
+    padding: .5rem;
+    margin: .5rem;
+    border-radius: 5px;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    color: white;
+    opacity: .8;
+    position: absolute;
+    background: #aaa;
+}

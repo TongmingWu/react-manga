@@ -1,0 +1,26 @@
+.search{
+    background: #f3f3f3;
+    /*background: black;*/
+    margin: 1.2rem auto;
+    border-radius: 15rem;
+    width: 90%;
+    height: 3.6rem;
+    position: relative;
+}
+
+.search-i{
+    height: 3.6rem;
+    width: 80%;
+    padding-left: 3%;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.ic-search{
+    width: 1.6rem;
+    height: 1.6rem;
+    top: 1rem;
+    right: 1.5rem;
+    position: absolute;
+}

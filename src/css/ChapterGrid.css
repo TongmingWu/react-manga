@@ -1,0 +1,18 @@
+.chapter-i {
+    display: inline-block;
+    width: 18%;
+    padding: .3rem;
+    height: 1.8rem;
+    font-size: .9rem;
+    line-height: 1.8rem;
+    /*border-radius: 35%;*/
+    border: .05rem solid #aaa;
+    background: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: .8rem;
+    text-align: center;
+}

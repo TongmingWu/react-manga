@@ -1,0 +1,27 @@
+.toolbar{
+    height: 4rem;
+    background: #ff960c;
+    position: relative;
+}
+
+.back{
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-top: .8rem;
+    margin-left: 1rem;
+}
+
+.tool-title{
+    font-size: 1.6rem;
+    padding-top: 1.2rem;
+    position: absolute;
+    color: white;
+    display: inline-block;
+    left:4.5rem;
+    /*top: 35%;*/
+    height: 100%;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

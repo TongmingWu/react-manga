@@ -1,0 +1,26 @@
+.loading-con{
+    width: 100%;
+    position: fixed;
+    top: 40%;
+    text-align: center;
+}
+.loading {
+    visibility: hidden;
+    color: white;
+    font-size: 1.6rem;
+    padding: .8rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 5rem;
+    width: 10rem;
+    background: #ff960c;
+    margin: 0 auto;
+}
+
+.loading-con .loading-img{
+    visibility: hidden;
+}
+
+.loading-con .loading-shown {
+    visibility: visible;
+}

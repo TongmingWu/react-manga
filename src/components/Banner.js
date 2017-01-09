@@ -1,0 +1,118 @@
+/**
+ * Created by Tongming on 2016/12/26.
+ */
+require('../css/Banner.css');
+import React from 'react';
+import {Link} from 'react-router';
+
+export default class Banner extends React.Component {
+	constructor(props) {
+		super(props);
+		//将props转换成自己的state
+		this.state = {
+			imgs: this.props.imgs,
+			currentIndex: 0,
+		};
+		this.isInit = false;        //是否初始化
+		this.looper = null;
+		this.timer = null;
+		this.width = window.screen.width;
+	}
+
+	componentWillMount() {
+
+	}
+
+	componentDidMount() {
+	}
+
+	componentWillReceiveProps(nextProps) {
+		//更新state
+		this.setState({imgs: nextProps.imgs});
+	}
+
+	componentWillUnmount() {
+		window.clearTimeout(this.looper);
+		window.clearInterval(this.timer);
+	}
+
+	//数据获取完成之后调用
+	componentDidUpdate() {
+		this.initBanner();
+		this.changeImage();
+	}
+
+	render() {
+		return (
+			<div className="banner">
+				<ul className="ul-img">
+					{
+						this.state.imgs.map((item, index) => {
+							return <Link
+								to={{pathname: 'detail', query: {comic_url: item.comic_url}}} key={'img-link-' + index}>
+								<li key={'img-li-' + index}>
+									<img className="banner-img" src={item.img} alt={item.title}/>
+								</li>
+							</Link>;
+						})
+					}
+				</ul>
+				<ul className="ul-point">
+					{
+						this.state.imgs.map((item, index) => {
+							return <li key={'point-' + index}
+							           className={index === this.state.currentIndex ? 'point-selected' : null}/>
+						})
+					}
+				</ul>
+			</div>
+		)
+	}
+
+	initBanner() {
+		if (this.isInit) {
+			return;
+		}
+		let imgs = document.getElementsByClassName('banner-img');
+		if (imgs.length > 0) {
+			/*for (let img of imgs) {
+			 img.style.width = this.width / 12 + 'rem';
+			 }*/
+			//ios中使用for of 没有效果
+			for (let i = 0; i < imgs.length; i++) {
+				imgs[i].style.width = this.width + 'px';
+			}
+			this.isInit = true;
+		}
+	}
+
+	//banner
+	changeImage() {
+		let _this = this;
+		let banner = document.getElementsByClassName('ul-img')[0];
+		window.clearTimeout(this.looper);
+		let currentPos = parseInt(banner.style.marginLeft || 0, 10);
+		// console.log('当前位置:' + (currentPos));
+		let isEnd = _this.width * (_this.state.imgs.length - 1) <= Math.abs(currentPos);
+		this.looper = setTimeout(() => {
+			//没有发生位移
+			if (isEnd) {
+				window.clearTimeout(_this.looper);
+				banner.style.marginLeft = 0 + 'px';
+				this.setState({currentIndex: 0});
+			} else {
+				let count = 0;
+				_this.timer = setInterval(() => {
+					if (count < _this.width) {
+						let offset = 10 > _this.width - count ? _this.width - count : 10;
+						banner.style.marginLeft = ((parseInt(banner.style.marginLeft || 0, 10)) - offset) + 'px';
+						count += offset;
+					} else {
+						window.clearInterval(_this.timer);
+						this.setState({currentIndex: this.state.currentIndex + 1});
+					}
+				}, 10);
+			}
+		}, 3000);
+	}
+}

@@ -1,0 +1,45 @@
+.transitionWrapper {
+    position: relative;
+}
+
+.transitionWrapper-enter {
+    /*opacity: 0.01;
+    transition: opacity 1.5s ease;*/
+    /*animation: page-enter .5s;*/
+}
+
+.transitionWrapper-leave {
+    /*opacity: 1;
+    transition: opacity 1.5s ease-in;*/
+    /*animation: page-leave .5s;*/
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0.01;
+    }
+    to {
+        opacity: 1;
+    }
+    /*from{
+        left: -100%;
+    }
+    to{
+        left: 0;
+    }*/
+}
+
+@keyframes page-leave {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+    /*from{
+        left: 0;
+    }
+    to{
+        left:100%;
+    }*/
+}

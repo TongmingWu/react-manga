@@ -1,0 +1,17 @@
+.cus-btn {
+    background: #ff960c;
+    color: white;
+    border-radius: 8rem;
+    border: none;
+    width: 8rem;
+    height: 3rem;
+    line-height: 3rem;
+    margin: .4rem .4rem;
+    outline: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.cus-btn:active {
+    background: #ffcd2c;
+}
