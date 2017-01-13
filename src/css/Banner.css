@@ -14,6 +14,7 @@
 .ul-point{
     position: absolute;
     bottom: .02rem;
+    /*top: 26%;*/
     right: .4rem;
 }
 

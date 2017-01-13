@@ -2,17 +2,14 @@
  * Created by Tongming on 2016/12/26.
  */
 import React from 'react';
+import BaseView from './BaseView'
 import api from '../apis'
-import Navigation from '../components/Navigation'
-import Banner from '../components/Banner';
-import ItemHead from '../components/ItemHead'
 import ComicGrid from '../components/ComicGrid'
 import Loading from '../components/Loading'
 require('../css/Home.css');
 // import {Link} from 'react-router';
 
-class Home extends React.Component {
-
+class HomeCollection extends BaseView {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -21,29 +18,41 @@ class Home extends React.Component {
 		}
 	}
 
-	componentWillMount() {
-		// this.getData()
-	}
-
 	getData() {
-		api({
-			path: '/cc/',
+		// api({
+		// 	path: '/cc/',
+		// 	method: 'GET',
+		// 	onSuccess: (json) => {
+		// 		if (!this.isUnmount) {
+		//
+		// 		}
+		// 	},
+		// 	onFail: (error) => {
+		// 		console.log(error);
+		//
+		// 	}
+		// })
+		console.log('getData');
+		let url = 'http://images.dmzj.com/webpic/13/fatestaynightheavenV3.jpg';
+		let mHeaders = new Headers({
+			'Access-Control-Allow-Origin': '*'
+		});
+		//无法修改Referer
+		let mInit = {
 			method: 'GET',
-			onSuccess: (json) => {
-
-			},
-			onFail: (error) => {
-				console.log(error);
-
-			}
+			referrer:'http://m.dmzj.com',
+			headers: mHeaders,
+			mode: 'cors',
+			cache: 'default'
+		};
+		fetch(url, mInit)
+			.then((res) => {
+				console.log('加载图片成功');
+				let objectURL = URL.createObjectURL(res);
+				document.getElementsByClassName('test')[0].src = objectURL;
+			}).catch((error) => {
+			console.log(error);
 		})
-	}
-
-	componentDidMount() {
-		this.props.router.setRouteLeaveHook(
-			this.props.route,
-			this.routerWillLeave
-		);
 	}
 
 	routerWillLeave() {
@@ -53,11 +62,11 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>I am collection!</h2>
+				<img className="test" alt="test"/>
 				<Loading status={this.state.status} shown={this.state.isCompleted}/>
 			</div>
 		)
 	}
 }
 
-export default Home;
+export default HomeCollection;

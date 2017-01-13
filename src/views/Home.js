@@ -16,27 +16,6 @@ class Home extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-
-		};
-	}
-
-	componentWillMount() {
-		// this.getData()
-	}
-
-	getData() {
-		api({
-			path: '/cc/',
-			method: 'GET',
-			onSuccess: (json) => {
-
-			},
-			onFail: (error) => {
-				console.log(error);
-
-			}
-		})
 	}
 
 	componentDidMount() {
@@ -46,17 +25,15 @@ class Home extends React.Component {
 		);
 	}
 
-	routerWillLeave() {
-		console.log('routerWillLeave');
-	}
-
 	render() {
 		return (
 			<div>
-				<Navigation/>
+				{/*<Navigation/>*/}
+				<div style={{paddingTop: '4rem'}}></div>
 				{React.cloneElement(this.props.children || <HomeMain/>, {
 					key: this.props.location.pathname
 				})}
+				<Navigation/>
 			</div>
 		)
 	}

@@ -1,52 +1,61 @@
-.con-info{
-    padding: 3%;
+.con-info {
+    padding: 14% 3% 3% 3%;
     /*background: #ff960c;*/
 }
 
-.con-info .cover{
+.con-info .cover {
     width: 28%;
-    /*height: 12rem;*/
-    height: 15%;
+    height: 13.5rem;
+    /*height: 15%;*/
     float: left;
     border: .1rem solid white;
     border-radius: 5%;
 }
 
-.info-r{
+.info-r {
     float: left;
     padding: .8rem;
     color: black;
+    width: 64%;
 }
 
-.info-r span{
+.info-r span {
     display: block;
     margin-top: .4rem;
 }
 
-.info-title{
-    font-size: 1.8rem;
-    font-weight: bold;
-    padding-bottom: .4rem;
-    width: 14rem;
+.info-r .span-author {
+    width: 96%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.desc{
+.info-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding-bottom: .4rem;
+    width: 96%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.desc {
+    padding-top: .5rem;
     width: 100%;
     -webkit-line-clamp: 3;
-    overflow : hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
 }
 
-.chapter-span{
+.chapter-span {
     color: black;
 }
 
-.chapter-span-r{
+.chapter-span-r {
     right: 1rem;
     position: absolute;
 

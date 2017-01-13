@@ -2,33 +2,25 @@
  * Created by Tongming on 2016/12/26.
  */
 require('../css/Banner.css');
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
-export default class Banner extends React.Component {
+class Banner extends Component {
 	constructor(props) {
 		super(props);
 		//将props转换成自己的state
-		this.state = {
-			imgs: this.props.imgs,
-			currentIndex: 0,
-		};
+		/*this.state = {
+		 currentIndex: 0,
+		 };*/
 		this.isInit = false;        //是否初始化
 		this.looper = null;
 		this.timer = null;
 		this.width = window.screen.width;
 	}
 
-	componentWillMount() {
-
-	}
-
 	componentDidMount() {
-	}
-
-	componentWillReceiveProps(nextProps) {
-		//更新state
-		this.setState({imgs: nextProps.imgs});
+		this.initBanner();
+		this.changeImage();
 	}
 
 	componentWillUnmount() {
@@ -47,7 +39,7 @@ export default class Banner extends React.Component {
 			<div className="banner">
 				<ul className="ul-img">
 					{
-						this.state.imgs.map((item, index) => {
+						this.props.imgs.map((item, index) => {
 							return <Link
 								to={{pathname: 'detail', query: {comic_url: item.comic_url}}} key={'img-link-' + index}>
 								<li key={'img-li-' + index}>
@@ -59,9 +51,9 @@ export default class Banner extends React.Component {
 				</ul>
 				<ul className="ul-point">
 					{
-						this.state.imgs.map((item, index) => {
+						this.props.imgs.map((item, index) => {
 							return <li key={'point-' + index}
-							           className={index === this.state.currentIndex ? 'point-selected' : null}/>
+							           className={index === this.props.currentIndex ? 'point-selected' : null}/>
 						})
 					}
 				</ul>
@@ -75,9 +67,6 @@ export default class Banner extends React.Component {
 		}
 		let imgs = document.getElementsByClassName('banner-img');
 		if (imgs.length > 0) {
-			/*for (let img of imgs) {
-			 img.style.width = this.width / 12 + 'rem';
-			 }*/
 			//ios中使用for of 没有效果
 			for (let i = 0; i < imgs.length; i++) {
 				imgs[i].style.width = this.width + 'px';
@@ -92,14 +81,14 @@ export default class Banner extends React.Component {
 		let banner = document.getElementsByClassName('ul-img')[0];
 		window.clearTimeout(this.looper);
 		let currentPos = parseInt(banner.style.marginLeft || 0, 10);
-		// console.log('当前位置:' + (currentPos));
-		let isEnd = _this.width * (_this.state.imgs.length - 1) <= Math.abs(currentPos);
+		let isEnd = _this.width * (_this.props.imgs.length - 1) <= Math.abs(currentPos);
 		this.looper = setTimeout(() => {
 			//没有发生位移
 			if (isEnd) {
 				window.clearTimeout(_this.looper);
 				banner.style.marginLeft = 0 + 'px';
-				this.setState({currentIndex: 0});
+				// this.setState({currentIndex: 0});
+				_this.props.onLoop(0, _this.props.dispatch);
 			} else {
 				let count = 0;
 				_this.timer = setInterval(() => {
@@ -109,10 +98,17 @@ export default class Banner extends React.Component {
 						count += offset;
 					} else {
 						window.clearInterval(_this.timer);
-						this.setState({currentIndex: this.state.currentIndex + 1});
+						// this.setState({currentIndex: this.state.currentIndex + 1});
+						_this.props.onLoop(_this.props.currentIndex + 1, _this.props.dispatch);
 					}
 				}, 10);
 			}
 		}, 3000);
 	}
 }
+
+Banner.PropTypes = {
+	imgs: PropTypes.array.isRequired
+};
+
+export default Banner;

@@ -1,10 +1,10 @@
 /**
  * Created by Tongming on 2017/1/1.
  */
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 require('../css/Button.css');
 
-export default class Button extends React.Component {
+class Button extends Component {
 	constructor(props) {
 		super(props);
 		//props:text
@@ -18,3 +18,9 @@ export default class Button extends React.Component {
 		)
 	}
 }
+
+Button.PropTypes = {
+	text: PropTypes.string.isRequired,
+};
+
+export default Button;

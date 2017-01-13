@@ -1,10 +1,10 @@
 /**
  * Created by Tongming on 2017/1/3.
  */
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 require('../css/SearchBar.css');
 
-export default class SearchBar extends React.Component {
+class SearchBar extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -27,10 +27,18 @@ export default class SearchBar extends React.Component {
 			<div className="search">
 				<input onKeyDown={this.innerSearch.bind(this)} id="search" placeholder="请输入关键词" className="search-i"
 				       type="text"/>
-				<img onClick={this.innerSearch.bind(this)} className="ic-search"
-				     src={require('../images/ic_search_m.png')}
-				     alt="search"/>
+				<div className="icon-con">
+					<img onClick={this.innerSearch.bind(this)} className="ic-search"
+					     src={require('../images/ic_search_m.png')}
+					     alt="search"/>
+				</div>
 			</div>
 		)
 	}
 }
+
+SearchBar.PropTypes = {
+	doSearch: PropTypes.func.isRequired,
+};
+
+export default SearchBar;

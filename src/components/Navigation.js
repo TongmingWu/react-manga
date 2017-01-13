@@ -2,10 +2,10 @@
  * Created by Tongming on 2016/12/26.
  */
 require('../css/Navigation.css');
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router'
 
-export default class Navigation extends React.Component {
+class Navigation extends Component {
 
 	constructor(props) {
 		super(props);
@@ -40,7 +40,7 @@ export default class Navigation extends React.Component {
 	init() {
 		//设置图标
 		let reg = new RegExp('/home/(.*)').exec(window.location.href);
-		switch (reg == null||undefined ? 'main' : reg[1]) {
+		switch (reg == null || undefined ? 'main' : reg[1]) {
 			case 'collection':
 				this.col = require("../images/icon_tab_favor.png");
 				break;
@@ -53,3 +53,10 @@ export default class Navigation extends React.Component {
 		}
 	}
 }
+Navigation.PropTypes = {
+	col: PropTypes.string.isRequired,
+	main: PropTypes.string.isRequired,
+	category: PropTypes.string.isRequired,
+};
+
+export default Navigation;

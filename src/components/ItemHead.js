@@ -2,12 +2,11 @@
  * 首页每一项的标题栏
  * Created by Tongming on 2016/12/31.
  */
-
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 require('../css/ItemHead.css');
 import {Link} from 'react-router';
 
-export default class ItemHead extends React.Component {
+class ItemHead extends Component {
 	//props:[title,index]
 	constructor(props) {
 		super(props);
@@ -32,3 +31,10 @@ export default class ItemHead extends React.Component {
 		)
 	}
 }
+
+ItemHead.PropTypes = {
+	title: PropTypes.string.isRequired,
+	index: PropTypes.number.isRequired,
+};
+
+export default ItemHead;
