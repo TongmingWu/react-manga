@@ -7,14 +7,16 @@ import {browserHistory} from 'react-router'
 import Loading from '../components/Loading'
 import {PAGE} from '../constants/Const'
 import {connect} from 'react-redux'
+import {getScreenWidth, getScreenHeight} from '../utils'
 import {fetchDataIfNeed, changePage, handleController} from '../actions'
 require('../css/Page.css');
 
 class Page extends BaseView {
 	constructor(props) {
 		super(props);
-		this.width = window.screen.width;
-		this.height = window.screen.height;
+		this.width = getScreenWidth();
+		this.height = getScreenHeight();
+		// this.isInit = false;
 	}
 
 	componentDidMount() {
@@ -34,11 +36,17 @@ class Page extends BaseView {
 				}
 			}
 			this.props.dispatch(changePage(currentIndex));
-		}
+		};
+	}
+
+	componentWillUnmount() {
+		window.onscroll = null;
+		window.onorientationchange = null;
 	}
 
 	getData() {
 		const {dispatch}  = this.props;
+		this.isInit = false;
 		dispatch(fetchDataIfNeed({
 			method: 'GET',
 			path: '/cc/comic/view',
@@ -48,7 +56,7 @@ class Page extends BaseView {
 	}
 
 	componentDidUpdate() {
-		this.initWH();
+		// this.initWH();
 	}
 
 	handleController(ev) {
@@ -77,7 +85,7 @@ class Page extends BaseView {
 	}
 
 	initWH() {
-		if (this.props.status !== 1) {
+		if (this.props.status !== 1 || this.isInit) {
 			return;
 		}
 		let imgs = document.getElementsByClassName('page-i');

@@ -2,7 +2,6 @@
  * Created by Tongming on 2016/12/30.
  */
 import {combineReducers} from 'redux'
-import {dictToString} from '../utils'
 import {
 	RECEIVE_DATA, REQUEST_FAIL, REQUEST_DATA,
 	HOME, SEARCH, CATEGORY, DETAIL, PAGE, COLLECTION, USER,
@@ -14,28 +13,29 @@ import {
  * 首页的reducer
  */
 function homeReducer(state = {
-	currentIndex: 0,
+	currentIndex: 0, localTop: 0,
 }, action) {
 	switch (action.type) {
 		case REQUEST_DATA + HOME:
-			console.log(REQUEST_DATA);
 			return Object.assign({}, state, {
 				status: 0
 			});
 		case RECEIVE_DATA + HOME:
-			console.log(RECEIVE_DATA);
 			return Object.assign({}, state, {
 				data: action.data,
 				status: 1,
 			});
 		case REQUEST_FAIL + HOME:
-			console.log(REQUEST_FAIL);
 			return Object.assign({}, state, {
 				status: -1
 			});
 		case BANNER_CHANGED:
 			return Object.assign({}, state, {
 				currentIndex: action.currentIndex,
+			});
+		case SCROLL_BAR + HOME:
+			return Object.assign({}, state, {
+				localTop: action.localTop
 			});
 		default:
 			return state;
@@ -45,23 +45,26 @@ function homeReducer(state = {
 /**
  * 分类的reducer
  */
-function categoryReducer(state = {}, action) {
+function categoryReducer(state = {
+	localTop: 0,
+}, action) {
 	switch (action.type) {
 		case REQUEST_DATA + CATEGORY:
-			console.log(REQUEST_DATA);
 			return Object.assign({}, state, {
 				status: 0
 			});
 		case RECEIVE_DATA + CATEGORY:
-			console.log(RECEIVE_DATA);
 			return Object.assign({}, state, {
 				category: action.data.category,
 				status: 1,
 			});
 		case REQUEST_FAIL + CATEGORY:
-			console.log(REQUEST_FAIL);
 			return Object.assign({}, state, {
 				status: -1
+			});
+		case SCROLL_BAR + CATEGORY:
+			return Object.assign({}, state, {
+				localTop: action.localTop
 			});
 		default:
 			return state;
@@ -76,13 +79,12 @@ function searchReducer(state = {
 }, action) {
 	switch (action.type) {
 		case REQUEST_DATA + SEARCH:
-			console.log(REQUEST_DATA);
 			return Object.assign({}, state, {
 				status: 0,
 				query: action.params.query,
+				title: action.params.title,
 			});
 		case RECEIVE_DATA + SEARCH:
-			console.log(RECEIVE_DATA);
 			return Object.assign({}, state, {
 				items: (state.items !== [] && !state.isChange) ?
 					state.items.concat(action.data.result) : action.data.result,
@@ -92,16 +94,18 @@ function searchReducer(state = {
 				isChange: false,
 			});
 		case REQUEST_FAIL + SEARCH:
-			console.log(REQUEST_FAIL);
 			return Object.assign({}, state, {
 				items: [],
 				status: -1
 			});
 		case SEARCH_CHANGE:
-			console.log(SEARCH_CHANGE);
 			return Object.assign({}, state, {
 				items: [],
 				isChange: true,
+			});
+		case SCROLL_BAR + SEARCH:
+			return Object.assign({}, state, {
+				localTop: action.localTop
 			});
 		default:
 			return state;
@@ -111,23 +115,27 @@ function searchReducer(state = {
 /**
  * 详情页的reducer
  */
-function detailReducer(state = {}, action) {
+function detailReducer(state = {
+	localTop: 0, status: 0,
+}, action) {
 	switch (action.type) {
 		case REQUEST_DATA + DETAIL:
-			console.log(REQUEST_DATA);
 			return Object.assign({}, state, {
 				status: 0
 			});
 		case RECEIVE_DATA + DETAIL:
-			console.log(RECEIVE_DATA);
 			return Object.assign({}, state, {
 				data: action.data,
 				status: 1,
 			});
 		case REQUEST_FAIL + DETAIL:
-			console.log(REQUEST_FAIL);
 			return Object.assign({}, state, {
 				status: -1
+			});
+		case SCROLL_BAR + DETAIL:
+			console.log('localTop = ' + action.localTop);
+			return Object.assign({}, state, {
+				localTop: action.localTop
 			});
 		default:
 			return state;
@@ -140,29 +148,29 @@ function detailReducer(state = {}, action) {
 function pageReducer(state = {}, action) {
 	switch (action.type) {
 		case REQUEST_DATA + PAGE:
-			console.log(REQUEST_DATA);
 			return Object.assign({}, state, {
 				status: 0,
 				shown: false,
 				imgs: [],
+				title: '',
+				total: 0,
+				currentIndex: 0,
 			});
 		case RECEIVE_DATA + PAGE:
-			console.log(RECEIVE_DATA);
 			return Object.assign({}, state, {
 				imgs: action.data.img_list,
 				title: action.data.chapter_name,
 				total: action.data.img_list.length,
+				currentIndex: 1,
 				preUrl: action.data.pre_chapter_url,
 				nextUrl: action.data.next_chapter_url,
 				next: action.data.next,
 				prepare: action.data.prepare,
-				currentIndex: 1,
 				status: 1,
 				shown: true,
 				chapterUrl: action.data.current_chapter_url,
 			});
 		case REQUEST_FAIL + PAGE:
-			console.log(REQUEST_FAIL);
 			return Object.assign({}, state, {
 				status: -1
 			});

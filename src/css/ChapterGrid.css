@@ -1,18 +1,28 @@
+.chapter-con {
+    /*width: 97%;*/
+    /*padding-left: 3%;*/
+    text-align: left;
+}
+
 .chapter-i {
     display: inline-block;
-    width: 18%;
-    padding: .3rem;
-    height: 1.8rem;
-    font-size: .9rem;
-    line-height: 1.8rem;
-    /*border-radius: 35%;*/
-    border: .05rem solid #aaa;
+    width: 28%;
+    /*padding: .3rem;*/
+    height: 2.8rem;
+    font-size: 80%;
+    line-height: 2.8rem;
+    border: 1px solid #aaa;
     background: white;
+    color: #535252;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-left: 2%;
-    margin-right: 2%;
+    /*margin-right: 4%;*/
+    margin-left: 4%;
     margin-top: .8rem;
     text-align: center;
+}
+
+.chapter-i:active{
+    background: none;
 }

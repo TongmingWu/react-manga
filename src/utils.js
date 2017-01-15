@@ -62,14 +62,15 @@ export function dictToString(dict) {
  * 获取屏幕宽度
  */
 export function getScreenWidth() {
-	return window.screen.width;
+	return document.documentElement.clientWidth;
+	// return window.screen.width;
 }
 
 /**
  * 获取屏幕高度
  */
 export function getScreenHeight() {
-	return window.screen.height;
+	return document.documentElement.clientHeight;
 }
 
 /**
@@ -92,7 +93,7 @@ export function getDocumentTop() {
  */
 export function getWindowHeight() {
 	let windowHeight = 0;
-	if (document.compatMode == "CSS1Compat") {
+	if (document.compatMode === "CSS1Compat") {
 		windowHeight = document.documentElement.clientHeight;
 	} else {
 		windowHeight = document.body.clientHeight;

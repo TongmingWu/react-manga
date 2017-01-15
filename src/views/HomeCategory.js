@@ -3,20 +3,31 @@
  */
 import React, {PropTypes} from 'react';
 import BaseView from './BaseView';
-import api from '../apis'
 import Loading from '../components/Loading'
 import {browserHistory} from 'react-router';
 import SearchBar from '../components/SearchBar'
 import CategoryGrid from '../components/CategoryGrid'
 import {CATEGORY} from '../constants/Const'
 import {connect} from 'react-redux'
-import {fetchDataIfNeed} from '../actions'
-
+import {getDocumentTop} from '../utils'
+import {fetchDataIfNeed, recordLocation} from '../actions'
 
 class HomeCategory extends BaseView {
 
 	constructor(props) {
 		super(props);
+	}
+
+	componentDidMount() {
+		super.componentDidMount();
+		if (this.props.status === 1) {
+			document.body.scrollTop = this.props.localTop;
+		}
+	}
+
+	componentWillUnmount() {
+		super.componentWillUnmount();
+		this.props.dispatch(recordLocation(getDocumentTop(), CATEGORY));
 	}
 
 	getData() {
@@ -49,13 +60,15 @@ class HomeCategory extends BaseView {
 
 HomeCategory.propTypes = {
 	data: PropTypes.object.isRequired,
-	status: PropTypes.number
+	status: PropTypes.number,
+	localTop: PropTypes.number,
 };
 
 function mapStateToProps(state) {
 	return {
 		category: state.categoryReducer.category,
-		status: state.categoryReducer.status
+		status: state.categoryReducer.status,
+		localTop: state.categoryReducer.localTop,
 	}
 }
 

@@ -10,15 +10,16 @@ class ComicItem extends Component {
 	}
 
 	render() {
+		const {cover, comic_author, comic_name, newest_chapter} = this.props.comic;
 		return (
 			<div className="comic-i">
 				<img className="cover"
-				     src={this.props.comic.cover === '' ? require('../images/load_error.png') : this.props.comic.cover}
-				     alt={this.props.comic.comic_name}/>
+				     src={cover === '' ? require('../images/load_error.png') : cover}
+				     alt={comic_name}/>
+				<strong ref={comic_name} className="title-i">{comic_name}</strong>
 				<span className="author-i">
-					{this.props.comic.comic_author === "" ? this.props.comic.newest_chapter : this.props.comic.comic_author}
-					</span>
-				<span className="title-i">{this.props.comic.comic_name}</span>
+					{comic_author.trim() === "" ? (newest_chapter.trim() === '' ? '未知' : newest_chapter) : comic_author}
+				</span>
 			</div>
 		)
 	}

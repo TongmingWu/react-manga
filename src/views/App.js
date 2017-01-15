@@ -1,7 +1,6 @@
-// require('normalize.css/normalize.css');
 require('../css/App.css');
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import React from 'react';
+
 
 export default React.createClass({
 	render(){

@@ -13,12 +13,6 @@ class Loading extends Component {
 	render() {
 		return (
 			<div className="loading-con">
-				{/*<span className={!this.props.shown ? 'loading loading-shown' : 'loading'}>
-				 {
-				 this.props.status === 0 || this.props.status === undefined ? '正在加载...' :
-				 (this.props.status === 1 ? '加载成功' : '加载失败 - -')
-				 }
-				 </span>*/}
 				<img className={!(this.props.status === 1) ? 'loading-img loading-shown' : 'loading-img'}
 				     src={this.props.status === 0 || this.props.status === undefined ? require('../images/loading.svg') :
 					     (this.props.status === 1 ? '' : require('../images/load_error.png'))}/>

@@ -10,6 +10,11 @@ class ComicGrid extends Component {
 	//props : [comics:Object]
 	constructor(props) {
 		super(props);
+		this.isInit = false;
+	}
+
+	componentWillReceiveProps(nextProps) {
+		// console.log(nextProps);
 	}
 
 	render() {
@@ -19,7 +24,7 @@ class ComicGrid extends Component {
 					this.props.comics === undefined ? [] : this.props.comics.map((item) => {
 							return <Link key={item.comic_url}
 							             to={{pathname: '/detail', query: {comic_url: item.comic_url}}}>
-								<ComicItem key={item.comic_id} comic={item}/>
+								<ComicItem comic={item}/>
 							</Link>
 						})
 				}

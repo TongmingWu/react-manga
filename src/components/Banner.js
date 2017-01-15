@@ -3,6 +3,7 @@
  */
 require('../css/Banner.css');
 import React, {Component, PropTypes} from 'react';
+import {getScreenWidth} from '../utils'
 import {Link} from 'react-router';
 
 class Banner extends Component {
@@ -15,7 +16,7 @@ class Banner extends Component {
 		this.isInit = false;        //是否初始化
 		this.looper = null;
 		this.timer = null;
-		this.width = window.screen.width;
+		this.width = getScreenWidth();
 	}
 
 	componentDidMount() {

@@ -3,22 +3,6 @@
     background: black;
 }
 
-.back {
-    width: 2.4rem;
-    height: 2.4rem;
-    margin-top: .8rem;
-    margin-left: 1rem;
-}
-
-.chapter-name {
-    color: white;
-    display: inline-block;
-    position: absolute;
-    font-size: 1.6rem;
-    padding-top: 1.2rem;
-    left: 4.5rem;
-}
-
 .page-top {
     position: fixed;
     top: 0;
@@ -27,6 +11,25 @@
     background: #31271a;
     opacity: .5;
     visibility: hidden;
+}
+
+.back {
+    display: inline-block;
+    vertical-align: top;
+    width: 2rem;
+    height: 2rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.chapter-name {
+    color: white;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 1.6rem;
+    height: 4rem;
+    line-height: 4rem;
+    margin-left: 2rem;
 }
 
 .page-bottom {
@@ -45,6 +48,7 @@
 
 .page-i {
     background: #ccc;
+    width: 100%;
     margin-bottom: .2rem;
 }
 
@@ -65,7 +69,7 @@
     color: black;
 }
 
-.btn-ch span{
+.btn-ch span {
     visibility: hidden;
 }
 

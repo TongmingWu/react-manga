@@ -6,8 +6,6 @@ import React, {Component} from 'react';
 class BaseView extends Component {
 	constructor(props) {
 		super(props);
-		this.isUnmount = false;
-		this.fet = null;
 		this.test = 'test';
 	}
 
@@ -17,11 +15,7 @@ class BaseView extends Component {
 	}
 
 	componentWillUnmount() {
-		this.isUnmount = true;
-		// if (this.fet != null) {
-		// 	console.log(this.fet);
-		// 	this.fet.catch();
-		// }
+
 	}
 
 	getData() {

@@ -12,11 +12,14 @@ class ChapterGrid extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="chapter-con">
 				{
 					this.props.chapterList === undefined ? [] : this.props.chapterList.map((item) => {
 							return <Link key={item.chapter_url}
-							             to={{pathname: '/page', query: {chapter_url: item.chapter_url}}}>
+							             to={{
+								             pathname: '/page',
+								             query: {chapter_url: item.chapter_url}
+							             }}>
 								<div className="chapter-i">
 									{item.chapter_title}
 								</div>

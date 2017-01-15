@@ -74,7 +74,13 @@ function shouldFetchData(state, params, dispatch) {
 			return state.collectionReducer.data === undefined;
 		case DETAIL:
 			if (state.detailReducer.data !== undefined) {
-				return state.detailReducer.data.comic_url !== params.query.comic_url
+				if (state.detailReducer.data.comic_url === params.query.comic_url) {
+					console.log('一样');
+					return false;
+				}
+				console.log('不一样');
+				dispatch(recordLocation(0, DETAIL));
+				return true;
 			}
 			break;
 		case SEARCH:
@@ -83,16 +89,10 @@ function shouldFetchData(state, params, dispatch) {
 				(state.searchReducer.query === undefined ? '' : reg.exec(dictToString(state.searchReducer.query))[1]);
 			if (isChange) {
 				dispatch(searchChange());
+				dispatch(recordLocation(0, SEARCH));
+				return true;
 			}
-			if (state.searchReducer.items !== [] && state.searchReducer.query !== undefined) {
-				//根据word或type判断,发生改变时将items清除
-				if (state.searchReducer.query.word !== params.query.word) {
-					return true;
-				} else if (state.searchReducer.query.type !== params.query.type) {
-					return true;
-				}
-			}
-			break;
+			return state.searchReducer.items !== [] && params.query.page !== state.searchReducer.page;
 		case PAGE:
 			if (state.detailReducer.imgs !== undefined) {
 				return state.detailReducer.chapterUrl !== params.query.chapter_url
@@ -159,12 +159,12 @@ export function onLoop(currentIndex) {
 
 /**
  * 记录滚动条滚动的位置
- * @param location 位置信息
+ * @param localTop 位置信息
  * @param type 指定页面
  */
-export function recordLoaction(location, type) {
+export function recordLocation(localTop, type) {
 	return {
 		type: SCROLL_BAR + type,
-		location: location,
+		localTop: localTop,
 	}
 }

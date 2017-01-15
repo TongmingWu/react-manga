@@ -1,27 +1,58 @@
 .con-info {
-    padding: 14% 3% 3% 3%;
-    /*background: #ff960c;*/
+    /*padding: 5.5rem 3% 3% 3%;*/
+    padding-top: 5.5rem;
+    width: 100%;
+}
+
+.info-top {
+    height: 15rem;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .con-info .cover {
-    width: 28%;
-    height: 13.5rem;
-    /*height: 15%;*/
-    float: left;
-    border: .1rem solid white;
-    border-radius: 5%;
+    width: 10.5rem;
+    height: 15rem;
+    /*margin-bottom: 1.8rem;*/
+    margin-left: 4%;
+    display: inline-block;
+    border: .1rem solid gray;
+    border-radius: .3rem;
+    vertical-align:top;
+    /*-webkit-filter: blur(10px); !* Chrome, Opera *!*/
+    /*-moz-filter: blur(10px);*/
+    /*-ms-filter: blur(10px);*/
+    /*filter: blur(10px);*/
 }
 
 .info-r {
-    float: left;
-    padding: .8rem;
+    display: inline-block;
+    padding: 0 .8rem 0 .8rem;
+    vertical-align:top;
     color: black;
-    width: 64%;
+    width: 60%;
+    height: 100%;
+}
+
+.info-title {
+    font-size: 2rem;
+    /*font-size: 18px;*/
+    /*font-size: 40%;*/
+    margin: .8rem .4rem;
+    font-weight: bold;
+    /*padding-bottom: .4rem;*/
+    width: 96%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .info-r span {
     display: block;
-    margin-top: .4rem;
+    /*font-size: 90%;*/
+    font-size: 1.4rem;
+    margin-top: .8rem;
+    margin-left: .4rem;
 }
 
 .info-r .span-author {
@@ -31,32 +62,32 @@
     white-space: nowrap;
 }
 
-.info-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    padding-bottom: .4rem;
-    width: 96%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.cl-desc {
+    padding: 0 4%;
+    margin-bottom: 1.2rem;
+    /*padding-left: 3%;*/
+    display: inline-block;
 }
 
 .desc {
-    padding-top: .5rem;
     width: 100%;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    margin: 0;
+    color: #535252;
 }
 
 .chapter-span {
-    color: black;
+    color: #535252;
+}
+
+.chapter-span-l {
+    width: 60%;
+    padding-left: 4%;
+    display: inline-block;
 }
 
 .chapter-span-r {
-    right: 1rem;
-    position: absolute;
-
+    width: 32%;
+    text-align: right;
+    /*padding-right: 2%;*/
+    display: inline-block;
 }

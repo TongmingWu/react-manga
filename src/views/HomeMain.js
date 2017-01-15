@@ -3,21 +3,30 @@
  */
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux'
-import {fetchDataIfNeed, onLoop} from '../actions'
+import {fetchDataIfNeed, onLoop, recordLocation} from '../actions'
 import Banner from '../components/Banner';
 import ItemHead from '../components/ItemHead'
 import ComicGrid from '../components/ComicGrid'
 import Loading from '../components/Loading'
 import BaseView from './BaseView';
 import {HOME} from '../constants/Const'
+import {getDocumentTop, getScreenWidth} from '../utils'
 require('../css/Home.css');
 // import {Link} from 'react-router';
 
-class Home extends BaseView {
+class HomeMain extends BaseView {
 
 	constructor(props) {
 		super(props);
-		this.test = 'test';
+		this.isInit = false;
+	}
+
+	componentDidMount() {
+		super.componentDidMount();
+		if (this.props.status === 1) {
+			document.body.scrollTop = this.props.localTop;
+		}
+		this.initCover();
 	}
 
 	getData() {
@@ -34,12 +43,37 @@ class Home extends BaseView {
 	}
 
 	componentWillUnmount() {
+		super.componentWillUnmount();
 		this.props.dispatch(onLoop(0));
+		//记录滚动条的位置
+		let localTop = getDocumentTop();
+		this.props.dispatch(recordLocation(localTop, HOME));
+	}
+
+	componentDidUpdate() {
+		this.initCover();
+	}
+
+	initCover() {
+		if (this.isInit) {
+			return
+		}
+		console.log('initCover');
+		let covers = document.getElementsByClassName('cover');
+		if (covers.length > 0) {
+			let width = getScreenWidth();
+			let length = covers.length;
+			let scale = 0.28;
+			for (let i = 0; i < length; i++) {
+				covers[i].style.width = (width * scale) + 'px';
+				covers[i].style.height = (width * scale * 1.4) + 'px';
+			}
+			this.isInit = true;
+		}
 	}
 
 	render() {
 		const {data, status, currentIndex} = this.props;
-		console.log('render index = ' + currentIndex);
 		let banner = data !== undefined ? data.banner : [];
 		let result = data !== undefined ? data.result : {};
 		return (
@@ -63,10 +97,11 @@ class Home extends BaseView {
 	}
 }
 
-Home.propTypes = {
+HomeMain.propTypes = {
 	data: PropTypes.object.isRequired,
 	status: PropTypes.number,
 	currentIndex: PropTypes.number,
+	localTop: PropTypes.number,
 };
 
 function mapStateToProps(state) {
@@ -74,7 +109,8 @@ function mapStateToProps(state) {
 		data: state.homeReducer.data,
 		status: state.homeReducer.status,
 		currentIndex: state.homeReducer.currentIndex,
+		localTop: state.homeReducer.localTop,
 	}
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(HomeMain);
