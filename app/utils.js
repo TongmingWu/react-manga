@@ -44,6 +44,7 @@ export function readUTF(word) {
  */
 export function dictToString(dict) {
 	let result = '';
+	// console.log(dict)
 	for (let key in dict) {
 		try {
 			if (result === '') {

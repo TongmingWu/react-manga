@@ -37,4 +37,9 @@ ItemHead.PropTypes = {
 	index: PropTypes.number.isRequired,
 };
 
+ItemHead.defaultProps = {
+	title: '',
+	index: 0,
+}
+
 export default ItemHead;

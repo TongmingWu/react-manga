@@ -22,19 +22,10 @@ class HomeCollection extends BaseView {
 
 	}
 
-	replace() {
-		browserHistory.replace('/test');
-	}
-
-	back(){
-		browserHistory.goBack();
-	}
-
 	render() {
 		return (
 			<div>
-				<button onClick={this.replace.bind(this)}>replace</button>
-				<button onClick={this.back.bind(this)}>back</button>
+				<h2 style={{textAlign:'center'}}>收藏页面尚未完成</h2>
 				<Loading status={this.state.status} shown={this.state.isCompleted}/>
 			</div>
 		)

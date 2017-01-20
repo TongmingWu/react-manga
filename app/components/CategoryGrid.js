@@ -14,7 +14,7 @@ class CategoryGrid extends Component {
 		return (
 			<div className="category-grid">
 				{
-					this.props.list === undefined ? [] : this.props.list.map((item) => {
+					this.props.list.map((item) => {
 							return <div key={'category-' + item.cid} className="category-i">
 								<Link to={'/category/' + item.title + '/' + item.cid}>
 									<div style={{background: `url(${item.cover})`, backgroundSize: 'cover'}}/>
@@ -31,5 +31,9 @@ class CategoryGrid extends Component {
 CategoryGrid.PropTypes = {
 	list: PropTypes.array.isRequired
 };
+
+CategoryGrid.defaultProps = {
+	list:[],
+}
 
 export default CategoryGrid;

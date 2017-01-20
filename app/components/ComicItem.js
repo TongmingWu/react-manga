@@ -29,4 +29,13 @@ Component.PropTypes = {
 	comic: PropTypes.object.isRequired,
 };
 
+ComicItem.defaultProps = {
+	comic: {
+		cover: '',
+		comic_author: '',
+		comic_name: '',
+		newest_chapter: '',
+	}
+}
+
 export default ComicItem;

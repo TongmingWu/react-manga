@@ -107,12 +107,13 @@ class Page extends BaseView {
 		return (
 			<div onClick={this.handleController.bind(this)} className="con-page">
 				<div className={shown ? 'page-top shown' : 'page-top'}>
+					<div className='back-down'/>
 					<img className="back" onClick={browserHistory.goBack}
 					     src={require('../images/abc_ic_ab_back_mtrl_am_alpha.png')}/>
 					<span
 						className="chapter-name">{title + '  ' + (currentIndex + 1) + '/' + total}</span>
 				</div>
-				{(imgs !== undefined || imgs === []) &&
+				{
 				<div onTouchMove={this.hideController.bind(this)} className="page-content">
 					{
 						imgs.map((item) => {
@@ -123,6 +124,7 @@ class Page extends BaseView {
 				}
 				<Loading status={status}/>
 				<div className={shown ? 'page-bottom shown' : 'page-bottom'}>
+					<div className='back-down'/>
 					<div className="page-bottom-inner">
 						<progress className="progress" value={currentIndex + 1} max={total}>
 							我是进度条- -
@@ -165,5 +167,18 @@ Page.PropTypes = {
 	currentIndex: PropTypes.number,
 	shown: PropTypes.bool.isRequired,
 };
+
+Page.defaultProps = {
+	imgs: [],
+	status: 0,
+	title: '',
+	total: 0,
+	preUrl: '',
+	nextUrl: '',
+	next:false,
+	prepare:false,
+	currentIndex:0,
+	shown:false,
+}
 
 export default connect(mapStateToProps)(Page);

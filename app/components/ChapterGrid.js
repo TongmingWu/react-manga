@@ -35,4 +35,8 @@ ChapterGrid.PropTypes = {
 	chapterList: PropTypes.array.isRequired
 };
 
+ChapterGrid.defaultProps = {
+	chapterList:[],
+}
+
 export default ChapterGrid;

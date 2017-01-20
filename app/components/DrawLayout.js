@@ -44,9 +44,7 @@ class DrawLayout extends Component {
 	startDrawRunner(status = CLOSE) {
 		//速度为加速递减
 		let drawLayout = document.getElementsByClassName('draw-layout-con')[0];
-		// let width = getScreenWidth() * 0.8;
 		let width = getScreenWidth();
-		// let total = !isOpen ? getScreenWidth() * 0.8 : 0;
 		let total = (status === OPENED) ? getScreenWidth() : 0;
 		let factor = (status === OPENED) ? -1 : 1;  //表示展开或收起
 		let currentPos = 0;
@@ -111,7 +109,7 @@ class DrawLayout extends Component {
 				<div className="draw-layout" style={{float: this.props.gravity === LEFT ? 'left' : 'right'}}>
 					<div className="draw-layout-head">
 						<div className="draw-avatar" style={{
-							background: `url(${this.props.avatar === undefined ? `${require('../images/default_avatar.png')}` : this.props.avatar})`
+							background: `url(${this.props.avatar === '' ? `${require('../images/default_avatar.png')}` : this.props.avatar})`
 							, backgroundSize: 'contain'
 						}}>
 							<span className="draw-user-name">未登录</span>
@@ -119,17 +117,18 @@ class DrawLayout extends Component {
 					</div>
 					<div className="draw-menu">
 						{
-							this.props.menu !== undefined ? this.props.menu.map((item, index) => {
+							this.props.menu.map((item, index) => {
 									return <div
-										className={this.props.position === index ? 'menu-item menu-item-selected' : 'menu-item'}>
+										className='menu-item'>
 										{/*<img className="menu-item-icon" src={item.icon} alt={item.title}/>*/}
 										<div className="menu-item-icon" style={{
 											background: `url(${item.icon})`,
-											backgroundSize: 'contain'
+											backgroundSize: 'contain',
+											backgroundColor:this.props.position === index?'red':''
 										}}/>
 										<span className="menu-item-title">{item.title}</span>
 									</div>
-								}) : ''
+								})
 						}
 					</div>
 				</div>
@@ -143,6 +142,8 @@ DrawLayout.PropTypes = {
 	speed: PropTypes.number,
 	status: PropTypes.number,
 	position: PropTypes.number,
+	menu:PropTypes.array.isRequired,
+	avatar:PropTypes.string.isRequired,
 };
 
 DrawLayout.defaultProps = {
@@ -150,6 +151,8 @@ DrawLayout.defaultProps = {
 	speed: 1,
 	status: CLOSE,
 	position: 0,
+	menu:[],
+	avatar:'',
 };
 
 export default DrawLayout;

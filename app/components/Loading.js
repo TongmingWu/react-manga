@@ -26,4 +26,9 @@ Loading.PropTypes = {
 	shown: PropTypes.bool.isRequired
 };
 
+Loading.defaultProps = {
+	status: 0,
+	shown: false,
+}
+
 export default Loading;

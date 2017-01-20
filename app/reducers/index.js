@@ -6,7 +6,7 @@ import {
 	RECEIVE_DATA, REQUEST_FAIL, REQUEST_DATA,
 	HOME, SEARCH, CATEGORY, DETAIL, PAGE, COLLECTION, USER,
 	CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE, BANNER_CHANGED,
-	SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,
+	SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,TOOLBAR,
 } from '../constants/Const'
 import {OPENED, CLOSE, RUNNING} from '../components/DrawLayout'
 
@@ -138,7 +138,7 @@ function searchReducer(state = {
  * 详情页的reducer
  */
 function detailReducer(state = {
-	localTop: 0, status: 0,
+	localTop: 0, status: 0, opacity:0,
 }, action) {
 	switch (action.type) {
 		case REQUEST_DATA + DETAIL:
@@ -158,6 +158,10 @@ function detailReducer(state = {
 			console.log('localTop = ' + action.localTop);
 			return Object.assign({}, state, {
 				localTop: action.localTop
+			});
+		case TOOLBAR:
+			return Object.assign({}, state, {
+				opacity: action.opacity,
 			});
 		default:
 			return state;

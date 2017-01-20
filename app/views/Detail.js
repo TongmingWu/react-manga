@@ -10,7 +10,7 @@ import Loading from '../components/Loading'
 import BaseView from './BaseView';
 import {DETAIL} from '../constants/Const'
 import {connect} from 'react-redux'
-import {fetchDataIfNeed, recordLocation} from '../actions'
+import {fetchDataIfNeed, recordLocation, updateOpacity} from '../actions'
 import {getDocumentTop} from '../utils'
 require('../css/Detail.less');
 
@@ -18,11 +18,23 @@ class Detail extends BaseView {
 
 	constructor(props) {
 		super(props);
+		this.isInit = false;
 	}
 
 	componentDidMount() {
 		super.componentDidMount();
-		this.changeTop(this.props)
+		this.changeTop(this.props);
+		window.onscroll = ()=>{
+			if(this.props.opacity===1&&top>200){
+				return;
+			}
+			let top = getDocumentTop();		
+			if(top/200<1){
+				this.props.dispatch(updateOpacity(top/200))
+			}else if(top>200){
+				this.props.dispatch(updateOpacity(1))
+			}
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -31,12 +43,14 @@ class Detail extends BaseView {
 
 	componentWillUnmount() {
 		super.componentWillUnmount();
-		this.props.dispatch(recordLocation(getDocumentTop(), DETAIL))
+		this.props.dispatch(recordLocation(getDocumentTop(), DETAIL));
+		window.onscroll = null;
 	}
 
 	changeTop(props) {
-		if (props.status === 1) {
+		if (props.status === 1&&!this.isInit) {
 			document.body.scrollTop = props.localTop;
+			this.isInit = true;
 		}
 	}
 
@@ -69,12 +83,15 @@ class Detail extends BaseView {
 
 	render() {
 		const {data, status} = this.props;
-		//限定字数为72
 		return (
 			<div>
-				<Toolbar title={data !== undefined ? (status === 1 ? data.comic_name : '') : ''}/>
+				<Toolbar opacity={this.props.opacity}  title={data !== undefined ? (status === 1 ? data.comic_name : '') : ''}/>
 				{data !== undefined ?
 					<div style={{visibility: status === 1 ? "visible" : "hidden"}} className="con-info">
+						<div className='blur-cover' style={{
+								background:`url(${data!==undefined?data.cover:''})`,
+								backgroundSize:'cover',
+							}}/>
 						<div className="info-top">
 							<img className="cover"
 							     src={data.cover == '' ? require('../images/load_error.png') : data.cover}
@@ -113,6 +130,7 @@ Detail.propTypes = {
 	data: PropTypes.object.isRequired,
 	status: PropTypes.number,
 	localTop: PropTypes.number,
+	opacity:PropTypes.number,
 };
 
 function mapStateToProps(state) {
@@ -121,6 +139,7 @@ function mapStateToProps(state) {
 		data: state.detailReducer.data,
 		status: state.detailReducer.status,
 		localTop: state.detailReducer.localTop,
+		opacity: state.detailReducer.opacity,
 	}
 }
 

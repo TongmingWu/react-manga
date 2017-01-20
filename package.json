@@ -1,10 +1,10 @@
 {
   "name": "webpack-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "React版的Manga",
   "main": "index.js",
   "scripts": {
-    "dev": "set WEBPACK_ENV=dev&&webpack-dev-server --port 9000 --devtool eval-source-map --progress --colors --hot --inline  --content-base ./dist",
+    "dev": "set WEBPACK_ENV=dev&&webpack-dev-server --host 0.0.0.0 --port 9000 --devtool eval-source-map --progress --colors --hot --inline  --content-base ./dist",
     "build": "set WEBPACK_ENV=build&&webpack",
     "test": "mocha --compilers js:babel-register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm test -- --watch"
@@ -34,6 +34,7 @@
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "whatwg-fetch": "^2.0.2"
   }
 }

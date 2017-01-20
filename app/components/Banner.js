@@ -74,6 +74,11 @@ class Banner extends Component {
 			}
 			// this.isInit = true;
 		}
+		let banner = document.getElementsByClassName('ul-img')[0];
+		if(this.props.currentIndex!==0){
+			console.log('不为0')
+			banner.style.marginLeft = -(this.width*currentIndex) + 'px'
+		}
 	}
 
 	//banner
@@ -112,5 +117,9 @@ class Banner extends Component {
 Banner.PropTypes = {
 	imgs: PropTypes.array.isRequired
 };
+
+Banner.defaultProps = {
+	imgs:[],
+}
 
 export default Banner;

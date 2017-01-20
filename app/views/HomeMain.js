@@ -67,7 +67,6 @@ class HomeMain extends BaseView {
 				covers[i].style.width = (width * scale) + 'px';
 				covers[i].style.height = (width * scale * 1.4) + 'px';
 			}
-			// this.isInit = true;
 			this.props.dispatch(initImage(true, HOME));
 		}
 	}

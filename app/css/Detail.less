@@ -1,13 +1,31 @@
 .con-info {
   /*padding: 5.5rem 3% 3% 3%;*/
-  padding-top: 5.5rem;
+  // padding-top: 4rem;
   width: 100%;
 }
 
 .info-top {
   /*height: 15rem;*/
   width: 100%;
+  padding-top: 5.5rem;
+  height: 16rem;
+  // background: #535252;
+  color: white;
   margin-bottom: 1rem;
+}
+
+.blur-cover{
+  backdrop-filter: blur(30px);
+  -webkit-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px) brightness(1.2) contrast(0.3);
+  -moz-filter:blur(30px);
+  -ms-filter: blur(30px);
+  filter: blur(30px);
+  height: 22.5rem;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  z-index: -5;
 }
 
 .con-info .cover {
@@ -19,18 +37,14 @@
   border: .1rem solid gray;
   border-radius: .3rem;
   vertical-align: top;
-  /*-webkit-filter: blur(10px); !* Chrome, Opera *!*/
-  /*-moz-filter: blur(10px);*/
-  /*-ms-filter: blur(10px);*/
-  /*filter: blur(10px);*/
 }
 
 .info-r {
   display: inline-block;
   padding: 0 .8rem 0 .8rem;
   vertical-align: top;
-  color: black;
-  width: 60%;
+  // color: black;
+  width: 50%;
   /*height: 100%;*/
 }
 
@@ -48,6 +62,7 @@
   /*font-size: 90%;*/
   font-size: 1.4rem;
   margin-top: 1rem;
+  // margin-top: 6%;
   margin-left: .4rem;
 }
 
@@ -59,7 +74,7 @@
 }
 
 .cl-desc {
-  padding: 0 4%;
+  padding: .5rem 4%;
   margin-bottom: 1.2rem;
   display: inline-block;
 }

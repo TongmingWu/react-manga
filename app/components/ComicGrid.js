@@ -21,7 +21,7 @@ class ComicGrid extends Component {
 		return (
 			<div className="grid">
 				{
-					this.props.comics === undefined ? [] : this.props.comics.map((item) => {
+					this.props.comics.map((item) => {
 							return <Link key={item.comic_url}
 							             to={{pathname: '/detail', query: {comic_url: item.comic_url}}}>
 								<ComicItem comic={item}/>
@@ -35,5 +35,9 @@ class ComicGrid extends Component {
 ComicGrid.PropTypes = {
 	comics: PropTypes.array.isRequired
 };
+
+ComicGrid.defaultProps = {
+	comics: [],
+}
 
 export default ComicGrid;
