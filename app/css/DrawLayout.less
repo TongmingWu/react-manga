@@ -1,0 +1,90 @@
+.draw-layout-con {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+}
+
+.draw-layout {
+    width: 80%;
+    height: 100%;
+    background: white;
+    border: .1rem solid #aaa;
+}
+
+.draw-layout-head {
+    width: 100%;
+    height: 26%;
+    position: relative;
+    background: url(../images/user_center_bg_light.jpg);
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+.draw-avatar {
+    width: 6rem;
+    height: 6rem;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    border-radius: 3rem;
+}
+
+.draw-user-name {
+    color: white;
+    width: 6rem;
+    text-align: center;
+    padding-top: 7rem;
+    display: inline-block;
+}
+
+.draw-menu {
+    width: 100%;
+    height: 70%;
+    padding: 4% 0;
+}
+
+.menu-item {
+    width: 100%;
+    height: 5rem;
+    font-size: 1.6rem;
+    color: #717171;
+    background: white;
+    /*border-bottom: .03rem #717171 solid;*/
+}
+
+.menu-item:active {
+    background: #cfcfcf;
+    color: #ff960c;
+}
+
+.menu-item-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-top: 1.3rem;
+    margin-left: 4%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.menu-item-title {
+    height: 5rem;
+    line-height: 5rem;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 6%;
+}
+
+.menu-item-selected {
+    background: #cfcfcf;
+    color: #ff960c;
+}
+
+.menu-item-selected > .menu-item-icon {
+    /*TODO 改变颜色*/
+    /*position: relative;*/
+    /*left: -100%;*/
+    /*border-right: 2.4rem solid transparent;*/
+    /*-webkit-filter: drop-shadow(2.4rem 0 #ff960c);*/
+    /*filter: drop-shadow(2.4rem 0 #ff960c)*/
+}
