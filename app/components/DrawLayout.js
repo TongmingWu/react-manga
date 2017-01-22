@@ -112,19 +112,23 @@ class DrawLayout extends Component {
 							background: `url(${this.props.avatar === '' ? `${require('../images/default_avatar.png')}` : this.props.avatar})`
 							, backgroundSize: 'contain'
 						}}>
-							<span className="draw-user-name">未登录</span>
+							<span className="draw-user-name">{this.props.user===''?'未登录':this.props.user}</span>
 						</div>
 					</div>
 					<div className="draw-menu">
 						{
 							this.props.menu.map((item, index) => {
 									return <div
+										style={this.props.position===index?{
+											background:'#ccc',
+											color:'#ff960c',
+										}:{}}
 										className='menu-item'>
 										{/*<img className="menu-item-icon" src={item.icon} alt={item.title}/>*/}
 										<div className="menu-item-icon" style={{
-											background: `url(${item.icon})`,
-											backgroundSize: 'contain',
-											backgroundColor:this.props.position === index?'red':''
+											background: `url(${item.icon}) no-repeat`,
+											backgroundSize: '2.4rem 2.4rem',
+											filter:this.props.position === index?'drop-shadow(3.6rem 0 0 #ff960c)':'drop-shadow(3.6rem 0 0 #aaa)'
 										}}/>
 										<span className="menu-item-title">{item.title}</span>
 									</div>
@@ -144,6 +148,7 @@ DrawLayout.PropTypes = {
 	position: PropTypes.number,
 	menu:PropTypes.array.isRequired,
 	avatar:PropTypes.string.isRequired,
+	user:PropTypes.string.isRequired,
 };
 
 DrawLayout.defaultProps = {
@@ -153,6 +158,7 @@ DrawLayout.defaultProps = {
 	position: 0,
 	menu:[],
 	avatar:'',
+	user:'',
 };
 
 export default DrawLayout;

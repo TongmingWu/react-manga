@@ -81,13 +81,13 @@ class HomeMain extends BaseView {
 					<Banner isInit={isInit} dispatch={this.props.dispatch} currentIndex={currentIndex}
 					        onLoop={this.onLoop}
 					        imgs={banner}/>
-					<ItemHead title="热门连载" index="0"/>
+					<ItemHead url='/manga/category/热门连载/107' title="热门连载" index="0"/>
 					<ComicGrid comics={result.hot}/>
-					<ItemHead title="精彩推荐" index="1"/>
+					<ItemHead url='/manga/category/排行榜/108' title="精彩推荐" index="1"/>
 					<ComicGrid comics={result.recommend}/>
-					<ItemHead title="精选国漫" index="2"/>
+					<ItemHead url='/manga/category/国漫/106' title="精选国漫" index="2"/>
 					<ComicGrid comics={result.local}/>
-					<ItemHead title="最新上架" index="3"/>
+					<ItemHead url='/manga/category/最近更新/109' title="最新上架" index="3"/>
 					<ComicGrid comics={result.release}/>
 					<div className="space"></div>
 				</div>

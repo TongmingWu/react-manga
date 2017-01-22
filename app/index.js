@@ -58,7 +58,7 @@ render((
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
 				<IndexRoute getComponent={home}/>
-				<Route path="home" getComponent={home}>
+				<Route path="manga/home" getComponent={home}>
 					<IndexRoute getComponent={homeMain}/>
 					<Route path="main" getComponent={homeMain}/>
 
@@ -67,13 +67,13 @@ render((
 					<Route path="category" getComponent={homeCategory}/>
 				</Route>
 
-				<Route path="detail" getComponent={detail}/>
+				<Route path="manga/detail" getComponent={detail}/>
 
-				<Route path="page" getComponent={page}/>
+				<Route path="manga/page" getComponent={page}/>
 
-				<Route path="category/:title/:cid" getComponent={search}/>
+				<Route path="manga/category/:title/:cid" getComponent={search}/>
 
-				<Route path="search" getComponent={search}/>
+				<Route path="manga/search" getComponent={search}/>
 			</Route>
 		</Router>
 	</Provider>

@@ -30,13 +30,13 @@ class Navigation extends Component {
 					     src={this.props.avatar === undefined ? require('../images/default_avatar.png') : this.props.avatar}/>
 				</div>
 				<div className="cl-tab">
-					<Link to="/home/collection">
+					<Link to="/manga/home/collection">
 						<img className="tab-item" src={this.col}/>
 					</Link>
-					<Link to="/home/main">
+					<Link to="/manga/home/main">
 						<img className="tab-item" src={this.main}/>
 					</Link>
-					<Link to="/home/category">
+					<Link to="/manga/home/category">
 						<img className="tab-item" src={this.search}/>
 					</Link>
 				</div>

@@ -3,7 +3,7 @@
  */
 import {dictToString} from './utils'
 import wFetch from 'whatwg-fetch'
-let baseUrl = 'http://119.29.57.187';
+let baseUrl = 'http://119.29.57.187/api';
 
 export default function (params) {
 	//真正起作用的地方 - -
@@ -17,13 +17,13 @@ export default function (params) {
 		})
 			.then(res=>res.json())
 			.then(json=>{
-				params.onSuccess(json)
+				params.onSuccess(json);
 			})
 			.catch((error) => {
 				params.onFail(error);
 			});
 	}else{
-		console.log('浏览器不支持fetch')
+		console.log('浏览器不支持fetch');
 		return wFetch(baseUrl + params.path + query)
 			.then(res=>res.json())
 			.then(json=>{

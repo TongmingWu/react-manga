@@ -16,7 +16,7 @@ class CategoryGrid extends Component {
 				{
 					this.props.list.map((item) => {
 							return <div key={'category-' + item.cid} className="category-i">
-								<Link to={'/category/' + item.title + '/' + item.cid}>
+								<Link to={'/manga/category/' + item.title + '/' + item.cid}>
 									<div style={{background: `url(${item.cover})`, backgroundSize: 'cover'}}/>
 								</Link>
 								<span>{item.title}</span>

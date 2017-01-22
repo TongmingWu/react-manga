@@ -72,7 +72,7 @@ class Detail extends BaseView {
 	}
 
 	startRead() {
-		browserHistory.push('/page?chapter_url=' +
+		browserHistory.push('/manga/page?chapter_url=' +
 			(this.props.data !== undefined ?
 				this.props.data.chapter_list[this.props.data.chapter_list.length - 1].chapter_url : ''))
 	}

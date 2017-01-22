@@ -7,7 +7,7 @@ require('../css/ItemHead.less');
 import {Link} from 'react-router';
 
 class ItemHead extends Component {
-	//props:[title,index]
+	//props:[title,index,url]
 	constructor(props) {
 		super(props);
 
@@ -22,7 +22,7 @@ class ItemHead extends Component {
 	render() {
 		return (
 			<div className="item-head">
-				<Link to={"category/" + this.props.index}>
+				<Link to={this.props.url}>
 					<img className="icon" src={this.icons[this.props.index]} alt={this.props.title}/>
 					<span className="title">{this.props.title}</span>
 					<span className="btn-enter">进去看看</span>
@@ -35,11 +35,13 @@ class ItemHead extends Component {
 ItemHead.PropTypes = {
 	title: PropTypes.string.isRequired,
 	index: PropTypes.number.isRequired,
+	url: PropTypes.string.isRequired,
 };
 
 ItemHead.defaultProps = {
 	title: '',
 	index: 0,
+	url: '',
 }
 
 export default ItemHead;
