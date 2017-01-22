@@ -10,7 +10,7 @@ import CategoryGrid from '../components/CategoryGrid'
 import {CATEGORY} from '../constants/Const'
 import {connect} from 'react-redux'
 import {getDocumentTop} from '../utils'
-import {fetchDataIfNeed, recordLocation} from '../actions'
+import {fetchDataIfNeed, recordLocation,updateSearchBar} from '../actions'
 
 class HomeCategory extends BaseView {
 
@@ -18,14 +18,7 @@ class HomeCategory extends BaseView {
 		super(props);
 	}
 
-	componentDidMount() {
-		super.componentDidMount();
-		if (this.props.status === 1) {
-			document.body.scrollTop = this.props.localTop;
-		}
-	}
-
-	componentWillUnmount() {
+	componentWillUnmount(){
 		super.componentWillUnmount();
 		this.props.dispatch(recordLocation(getDocumentTop(), CATEGORY));
 	}
@@ -41,16 +34,20 @@ class HomeCategory extends BaseView {
 	}
 
 	handleSearch(ev, word) {
-		console.log(word);
-		let url = '/search?word=' + word;
+		// ev.props.dispatch(updateSearchBar(word));
+		let url = '/manga/search?word=' + word;
 		browserHistory.push(url);
+	}
+
+	handleChange(ev,word){
+		ev.props.dispatch(updateSearchBar(word));
 	}
 
 	render() {
 		const {category, status} = this.props;
 		return (
 			<div>
-				<SearchBar doSearch={this.handleSearch}/>
+				<SearchBar handleChange={this.handleChange} dispatch={this.props.dispatch} value={this.props.inputValue}  doSearch={this.handleSearch}/>
 				<CategoryGrid list={category}/>
 				<Loading status={status}/>
 			</div>
@@ -62,6 +59,7 @@ HomeCategory.propTypes = {
 	data: PropTypes.object.isRequired,
 	status: PropTypes.number,
 	localTop: PropTypes.number,
+	inputValue: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -69,6 +67,7 @@ function mapStateToProps(state) {
 		category: state.categoryReducer.category,
 		status: state.categoryReducer.status,
 		localTop: state.categoryReducer.localTop,
+		inputValue:state.categoryReducer.inputValue,
 	}
 }
 

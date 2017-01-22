@@ -20,14 +20,6 @@ class HomeMain extends BaseView {
 		super(props);
 	}
 
-	componentDidMount() {
-		super.componentDidMount();
-		if (this.props.status === 1) {
-			document.body.scrollTop = this.props.localTop;
-		}
-		this.initCover();
-	}
-
 	getData() {
 		const {dispatch}  = this.props;
 		dispatch(fetchDataIfNeed({
@@ -41,7 +33,7 @@ class HomeMain extends BaseView {
 		dispatch(onLoop(currentIndex));
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(){
 		super.componentWillUnmount();
 		this.props.dispatch(onLoop(0));
 		//记录滚动条的位置
@@ -50,24 +42,19 @@ class HomeMain extends BaseView {
 		this.props.dispatch(initImage(false, HOME));
 	}
 
-	componentDidUpdate() {
-		this.initCover();
-	}
-
 	initCover() {
-		if (this.props.isInit) {
-			return
-		}
-		let covers = document.getElementsByClassName('cover');
-		if (covers.length > 0) {
-			let width = getScreenWidth();
-			let length = covers.length;
-			let scale = 0.28;
-			for (let i = 0; i < length; i++) {
-				covers[i].style.width = (width * scale) + 'px';
-				covers[i].style.height = (width * scale * 1.4) + 'px';
+		if(!this.props.isInit||this.isChange){
+			let covers = document.getElementsByClassName('cover');
+			if (covers.length > 0) {
+				let width = getScreenWidth();
+				let length = covers.length;
+				let scale = 0.303333333;
+				for (let i = 0; i < length; i++) {
+					covers[i].style.width = (width * scale) + 'px';
+					covers[i].style.height = (width * scale * 1.4) + 'px';
+				}
+				this.props.dispatch(initImage(true, HOME));
 			}
-			this.props.dispatch(initImage(true, HOME));
 		}
 	}
 
@@ -78,7 +65,7 @@ class HomeMain extends BaseView {
 		return (
 			<div>
 				<div style={{visibility: status === 1 ? "visible" : "hidden"}}>
-					<Banner isInit={isInit} dispatch={this.props.dispatch} currentIndex={currentIndex}
+					<Banner isChange={this.isChange} isInit={isInit} dispatch={this.props.dispatch} currentIndex={currentIndex}
 					        onLoop={this.onLoop}
 					        imgs={banner}/>
 					<ItemHead url='/manga/category/热门连载/107' title="热门连载" index="0"/>
@@ -104,6 +91,13 @@ HomeMain.propTypes = {
 	localTop: PropTypes.number,
 	isInit: PropTypes.bool,
 };
+
+HomeMain.defaultProps = {
+	status:0,
+	currentIndex:0,
+	localTop:0,
+	isInit:false,
+}
 
 function mapStateToProps(state) {
 	return {

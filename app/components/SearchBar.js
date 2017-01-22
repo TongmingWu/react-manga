@@ -2,6 +2,7 @@
  * Created by Tongming on 2017/1/3.
  */
 import React, {Component, PropTypes} from 'react';
+import {updateSearchBar} from '../actions'
 require('../css/SearchBar.less');
 
 class SearchBar extends Component {
@@ -22,11 +23,16 @@ class SearchBar extends Component {
 		}
 	}
 
+	handleChange(ev){
+		let search = document.getElementById('search');
+		this.props.handleChange(this,search.value);
+	}
+
 	render() {
 		return (
 			<div className="search">
 				<input onKeyDown={this.innerSearch.bind(this)} id="search" placeholder="请输入关键词" className="search-i"
-				       type="text"/>
+					   type="text" value={this.props.value} onChange={this.handleChange.bind(this)}/>
 				<div className="icon-con">
 					<img onClick={this.innerSearch.bind(this)} className="ic-search"
 					     src={require('../images/ic_search_m.png')}

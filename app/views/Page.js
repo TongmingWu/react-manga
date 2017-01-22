@@ -16,7 +16,6 @@ class Page extends BaseView {
 		super(props);
 		this.width = getScreenWidth();
 		this.height = getScreenHeight();
-		// this.isInit = false;
 	}
 
 	componentDidMount() {
@@ -55,10 +54,6 @@ class Page extends BaseView {
 		}));
 	}
 
-	componentDidUpdate() {
-		// this.initWH();
-	}
-
 	handleController(ev) {
 		if (Math.abs(ev.clientX - this.width / 2) < this.width / 3
 			&& Math.abs(ev.clientY - this.height / 2) < this.height / 4) {
@@ -82,7 +77,7 @@ class Page extends BaseView {
 		}
 		this.chapterUrl = ev.target.childNodes.item(0).textContent;
 		this.getData();
-		browserHistory.replace('/page?chapter_url='+this.chapterUrl)
+		browserHistory.replace('/manga/page?chapter_url='+this.chapterUrl)
 	}
 
 	initWH() {

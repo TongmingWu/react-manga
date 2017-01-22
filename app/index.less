@@ -22,8 +22,13 @@ ul {
 
 a {
     color: #0b0f03;
+    background: transparent;
 }
 
-a, img {
-    -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+/* 去除移动HTML5中点击的阴影 */
+div,a,img {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select:none;
 }

@@ -63,20 +63,22 @@ class Banner extends Component {
 	}
 
 	initBanner() {
-		if (this.props.isInit) {
+		console.log(this.props.isChange)
+		if (this.props.isInit||!this.props.isChange) {
 			return;
 		}
+		console.log('initBanner')
 		let imgs = document.getElementsByClassName('banner-img');
+		let width = getScreenWidth();
 		if (imgs.length > 0) {
 			//ios中使用for of 没有效果
 			for (let i = 0; i < imgs.length; i++) {
-				imgs[i].style.width = this.width + 'px';
+				imgs[i].style.width = width + 'px';
 			}
 			// this.isInit = true;
 		}
 		let banner = document.getElementsByClassName('ul-img')[0];
 		if(this.props.currentIndex!==0){
-			console.log('不为0')
 			banner.style.marginLeft = -(this.width*currentIndex) + 'px'
 		}
 	}

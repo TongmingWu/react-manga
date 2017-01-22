@@ -13,9 +13,13 @@ class ComicItem extends Component {
 		const {cover, comic_author, comic_name, newest_chapter} = this.props.comic;
 		return (
 			<div className="comic-i">
-				<img className="cover"
+				{/*<img className="cover"
 				     src={cover === '' ? require('../images/load_error.png') : cover}
-				     alt={comic_name}/>
+				     alt={comic_name}/>*/}
+				<div className='cover' style={{
+					background:`url(${cover === '' ? require('../images/load_error.png') : cover})`,
+					backgroundSize:'cover',
+				}}/>
 				<strong ref={comic_name} className="title-i">{comic_name}</strong>
 				<span className="author-i">
 					{comic_author.trim() === "" ? (newest_chapter.trim() === '' ? '未知' : newest_chapter) : comic_author}

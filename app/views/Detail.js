@@ -93,9 +93,13 @@ class Detail extends BaseView {
 								backgroundSize:'cover',
 							}}/>
 						<div className="info-top">
-							<img className="cover"
+							{/*<img className="cover"
 							     src={data.cover == '' ? require('../images/load_error.png') : data.cover}
-							     alt={data.comic_name}/>
+								alt={data.comic_name}/>*/}
+							<div className='cover'
+								 style={{
+									 background:`url(${(data.cover == '' ? require('../images/load_error.png') : data.cover)}) 0% 0% / cover`
+								 }}/>
 							<div className="info-r">
 								<h1 className="info-title">{data.comic_name}</h1>
 								<span className="span-author">作者：{data.comic_author}</span>

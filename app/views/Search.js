@@ -29,14 +29,10 @@ class Search extends BaseView {
 			}
 		};
 		this.getQuery();
-		this.getData();
-		if (this.props.status === 1) {
-			document.body.scrollTop = this.props.localTop;
-		}
-		this.initCover();
+		super.componentDidMount();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(){
 		super.componentWillUnmount();
 		this.props.dispatch(recordLocation(getDocumentTop(), SEARCH));
 		window.onscroll = null;
@@ -92,27 +88,21 @@ class Search extends BaseView {
 		this.getData();
 	}
 
-	componentDidUpdate() {
-		this.initCover();
-	}
-
 	initCover() {
-		if (this.props.isInit && this.props.status !== 1) {
-			return;
-		}
-		console.log('initCover');
-		let covers = document.getElementsByClassName('cover');
-		if (covers.length > this.startCover) {
-			let width = getScreenWidth();
-			let length = covers.length;
-			let scale = 0.28;
-			for (let i = this.startCover; i < length; i++) {
-				covers[i].style.width = (width * scale) + 'px';
-				covers[i].style.height = (width * scale * 1.4) + 'px';
+		if((!this.props.isInit&&this.props.status===1)||this.isChange){
+			let covers = document.getElementsByClassName('cover');
+			if (covers.length > this.startCover||this.isChange) {
+				let width = getScreenWidth();
+				let length = covers.length;
+				let scale = 0.303333333;
+				for (let i = this.isChange?0:this.startCover; i < length; i++) {
+					covers[i].style.width = (width * scale) + 'px';
+					covers[i].style.height = (width * scale * 1.4) + 'px';
+				}
+				this.startCover = covers.length;
+				// this.isInit = true;
+				this.props.dispatch(initImage(true, SEARCH));
 			}
-			this.startCover = covers.length;
-			// this.isInit = true;
-			this.props.dispatch(initImage(true, SEARCH));
 		}
 	}
 
@@ -138,6 +128,15 @@ Search.PropTypes = {
 	localTop: PropTypes.number,
 	isInit: PropTypes.bool,
 };
+
+Search.defaultProps = {
+	items:[],
+	title:'',
+	page:1,
+	status:0,
+	localTop:0,
+	isInit:false,
+}
 
 function mapStateToProps(state) {
 	return {

@@ -6,7 +6,7 @@ import {dictToString} from '../utils'
 import {
     RECEIVE_DATA, REQUEST_FAIL, REQUEST_DATA,
     HOME, CATEGORY, DETAIL, SEARCH, PAGE, COLLECTION, USER,
-    CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE,TOOLBAR,
+    CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE,TOOLBAR,INPUT_VALUE,
     BANNER_CHANGED, SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,
 } from '../constants/Const'
 
@@ -194,5 +194,15 @@ export function updateOpacity(opacity){
     return{
         type: TOOLBAR,
         opacity,
+    }
+}
+
+/**
+ * 更新SearchBar
+ */
+export function updateSearchBar(inputValue){
+    return{
+        type:INPUT_VALUE,
+        inputValue
     }
 }

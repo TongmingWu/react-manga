@@ -6,7 +6,7 @@ import {
 	RECEIVE_DATA, REQUEST_FAIL, REQUEST_DATA,
 	HOME, SEARCH, CATEGORY, DETAIL, PAGE, COLLECTION, USER,
 	CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE, BANNER_CHANGED,
-	SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,TOOLBAR,
+	SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,TOOLBAR,INPUT_VALUE,
 } from '../constants/Const'
 import {OPENED, CLOSE, RUNNING} from '../components/DrawLayout'
 
@@ -18,6 +18,7 @@ function appReducer(state = {
 			return Object.assign({}, state, {
 				drawStatus: action.drawStatus,
 			});
+		//添加横竖屏切换
 		default:
 			return state;
 	}
@@ -83,6 +84,10 @@ function categoryReducer(state = {
 		case SCROLL_BAR + CATEGORY:
 			return Object.assign({}, state, {
 				localTop: action.localTop
+			});
+		case INPUT_VALUE:
+			return Object.assign({},state,{
+				inputValue:action.inputValue,
 			});
 		default:
 			return state;
