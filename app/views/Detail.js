@@ -19,6 +19,7 @@ class Detail extends BaseView {
 	constructor(props) {
 		super(props);
 		this.isInit = false;
+		this.kind = DETAIL;
 	}
 
 	componentDidMount() {
@@ -43,7 +44,7 @@ class Detail extends BaseView {
 
 	componentWillUnmount() {
 		super.componentWillUnmount();
-		this.props.dispatch(recordLocation(getDocumentTop(), DETAIL));
+		// this.props.dispatch(recordLocation(getDocumentTop(), DETAIL));
 		window.onscroll = null;
 	}
 

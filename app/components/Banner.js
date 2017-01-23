@@ -63,23 +63,20 @@ class Banner extends Component {
 	}
 
 	initBanner() {
-		console.log(this.props.isChange)
-		if (this.props.isInit||!this.props.isChange) {
-			return;
-		}
-		console.log('initBanner')
-		let imgs = document.getElementsByClassName('banner-img');
-		let width = getScreenWidth();
-		if (imgs.length > 0) {
-			//ios中使用for of 没有效果
-			for (let i = 0; i < imgs.length; i++) {
-				imgs[i].style.width = width + 'px';
+		if(!this.props.isInit||this.props.isChange){
+			let imgs = document.getElementsByClassName('banner-img');
+			let width = getScreenWidth();
+			if (imgs.length > 0) {
+				//ios中使用for of 没有效果
+				for (let i = 0; i < imgs.length; i++) {
+					imgs[i].style.width = width + 'px';
+				}
+				// this.isInit = true;
 			}
-			// this.isInit = true;
-		}
-		let banner = document.getElementsByClassName('ul-img')[0];
-		if(this.props.currentIndex!==0){
-			banner.style.marginLeft = -(this.width*currentIndex) + 'px'
+			let banner = document.getElementsByClassName('ul-img')[0];
+			if(this.props.currentIndex!==0){
+				banner.style.marginLeft = -(this.width*currentIndex) + 'px'
+			}
 		}
 	}
 

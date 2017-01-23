@@ -15,6 +15,7 @@ require('../css/Category.less');
 class Search extends BaseView {
 	constructor(props) {
 		super(props);
+		this.kind = SEARCH;
 		this.path = '';
 		this.query = {};
 		this.title = '';
@@ -34,9 +35,9 @@ class Search extends BaseView {
 
 	componentWillUnmount(){
 		super.componentWillUnmount();
-		this.props.dispatch(recordLocation(getDocumentTop(), SEARCH));
+		// this.props.dispatch(recordLocation(getDocumentTop(), SEARCH));
+		// this.props.dispatch(initImage(false, SEARCH));
 		window.onscroll = null;
-		this.props.dispatch(initImage(false, SEARCH));
 	}
 
 	getQuery() {

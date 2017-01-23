@@ -7,6 +7,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let config = {
 	entry: [
+		'whatwg-fetch',
 		'webpack/hot/dev-server',
 		'webpack-dev-server/client?http://0.0.0.0:9000',
 		'./app/index.js'

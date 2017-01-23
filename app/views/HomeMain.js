@@ -18,6 +18,7 @@ class HomeMain extends BaseView {
 
 	constructor(props) {
 		super(props);
+		this.kind = HOME;
 	}
 
 	getData() {

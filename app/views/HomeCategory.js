@@ -16,12 +16,13 @@ class HomeCategory extends BaseView {
 
 	constructor(props) {
 		super(props);
+		this.kind = CATEGORY;
 	}
 
-	componentWillUnmount(){
-		super.componentWillUnmount();
-		this.props.dispatch(recordLocation(getDocumentTop(), CATEGORY));
-	}
+	// componentWillUnmount(){
+	// 	super.componentWillUnmount();
+	// 	this.props.dispatch(recordLocation(getDocumentTop(), CATEGORY));
+	// }
 
 	getData() {
 		const {dispatch}  = this.props;
@@ -34,7 +35,6 @@ class HomeCategory extends BaseView {
 	}
 
 	handleSearch(ev, word) {
-		// ev.props.dispatch(updateSearchBar(word));
 		let url = '/manga/search?word=' + word;
 		browserHistory.push(url);
 	}

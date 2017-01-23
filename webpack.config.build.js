@@ -12,6 +12,7 @@ let ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let config = {
 	entry: [
+		'whatwg-fetch',
 		'./app/index.js'
 	],	//入口文件
 	output: {

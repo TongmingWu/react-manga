@@ -3,15 +3,17 @@
  */
 import React, {Component} from 'react';
 import {getScreenWidth,getScreenHeight,getDocumentTop} from '../utils'
+import {HOME,DETAIL,CATEGORY,SEARCH} from '../constants/Const'
+import {recordLocation,initImage,onLoop} from '../actions/index'
 
 class BaseView extends Component {
 	constructor(props) {
 		super(props);
 		this.isChange = false;
+		this.kind = '';
 	}
 
 	componentDidMount() {
-		console.log(this.props.route);
 		if (this.props.status === 1) {
 			document.body.scrollTop = this.props.localTop;
 		}
@@ -26,6 +28,17 @@ class BaseView extends Component {
 
 	componentWillUnmount() {
 		window.onorientationchange = null;
+		console.log(this.type);
+		const dispatch = this.props.dispatch;
+		switch(this.kind){
+			case HOME:
+				dispatch(onLoop(0));
+			case SEARCH:
+				dispatch(initImage(false,this.kind));
+			default:
+				dispatch(recordLocation(getDocumentTop(),this.kind))
+				break
+		}
 	}
 
 	getData() {

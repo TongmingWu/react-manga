@@ -9,8 +9,8 @@
     "test": "mocha --compilers js:babel-register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm test -- --watch"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["react","漫画"],
+  "author": "Tongming",
   "license": "ISC",
   "devDependencies": {
     "babel": "^6.5.2",
