@@ -20,3 +20,5 @@ export const INIT_IMAGE = 'INIT_IMAGE ';
 export const DRAW_LAYOUT = 'DRAW_LAYOUT';
 export const TOOLBAR = 'TOOLBAR ';
 export const INPUT_VALUE = 'INPUT_VALUE';
+export const HISTORY_CHAPTER = 'HISTORY_CHAPTER';
+export const HISTORY = 'HISTORY';

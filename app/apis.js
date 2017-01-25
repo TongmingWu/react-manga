@@ -23,22 +23,22 @@ export default function (params) {
 			cache:'default'
 		})
 			.then(res=>res.json())
+			.then(checkStatus)			
 			.then(json=>{
 				params.onSuccess(json)
 			})
 			.catch((error) => {
+				console.log(error)
 				params.onFail(error);
 			});
-	// var xhr;
+}
 
-	// if (window.XMLHttpRequest) {
-	// 	xhr=new XMLHttpRequest();
-	// } else if (window.ActiveXObject) {
-	// 	xhr=new ActiveXObject("Microsoft.XMLHTTP");
-	// }
-
-	// if (xhr) {
-	// 	xhr.open('GET', baseUrl+'/cc/', true); 
-	// 	xhr.send(); // 调用send方法发送请求
-	// }
+function checkStatus(response){
+	if(response.code >=200 && response.code <= 304){
+		return response
+	}else{
+		var error = new Error(response.message)
+		error.response = response
+		throw error
+	}
 }

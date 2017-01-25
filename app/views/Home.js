@@ -16,15 +16,18 @@ class Home extends React.Component {
 		this.menu = [
 			{
 				title: '首页',
-				icon: require('../images/ic_home_grey_500_18dp.png')
+				icon: require('../images/ic_home_grey_500_18dp.png'),
+				url:'/manga/home/main'
 			},
 			{
 				title: '历史记录',
 				icon: require('../images/ic_drawer_history.png'),
+				url:'/manga/history'
 			},
 			{
 				title: '我的收藏',
-				icon: require('../images/ic_drawer_collect.png')
+				icon: require('../images/ic_drawer_collect.png'),
+				url:'/manga/home/collection'
 			},
 			{
 				title: '设置中心',

@@ -20,7 +20,13 @@ class ChapterGrid extends Component {
 								             pathname: '/manga/page',
 								             query: {chapter_url: item.chapter_url}
 							             }}>
-								<div className="chapter-i">
+								<div className="chapter-i"
+									style={
+										this.props.historyUrl===item.chapter_url?{
+											background:'#ff960c',
+											color:'white'
+										}:{}
+									}>
 									{item.chapter_title}
 								</div>
 							</Link>
@@ -32,11 +38,13 @@ class ChapterGrid extends Component {
 }
 
 ChapterGrid.PropTypes = {
-	chapterList: PropTypes.array.isRequired
+	chapterList: PropTypes.array.isRequired,
+	historyUrl:PropTypes.string.isRequired,
 };
 
 ChapterGrid.defaultProps = {
 	chapterList:[],
+	historyUrl:'',
 }
 
 export default ChapterGrid;

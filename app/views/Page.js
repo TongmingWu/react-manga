@@ -9,13 +9,13 @@ import {PAGE} from '../constants/Const'
 import {connect} from 'react-redux'
 import {getScreenWidth, getScreenHeight} from '../utils'
 import {fetchDataIfNeed, changePage, handleController} from '../actions'
+import {recordHistoryChapter} from '../db/DBManager'
 require('../css/Page.less');
 
 class Page extends BaseView {
 	constructor(props) {
 		super(props);
-		this.width = getScreenWidth();
-		this.height = getScreenHeight();
+		this.isInit = false;
 	}
 
 	componentDidMount() {
@@ -52,6 +52,19 @@ class Page extends BaseView {
 			category: PAGE,
 			query: {chapter_url: this.chapterUrl}
 		}));
+		this.isInit = false;
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(nextProps.status===1&&!this.isInit){
+			let reg = new RegExp('/(.*)/(.*)/(.*)/').exec(nextProps.chapterUrl);			
+			recordHistoryChapter({
+				chapter_url:nextProps.chapterUrl,
+				chapter_title:nextProps.title,
+				comic_url:`/${reg[1]}/${reg[2]}/`
+			})
+			this.isInit = true;
+		}
 	}
 
 	handleController(ev) {
@@ -78,19 +91,6 @@ class Page extends BaseView {
 		this.chapterUrl = ev.target.childNodes.item(0).textContent;
 		this.getData();
 		browserHistory.replace('/manga/page?chapter_url='+this.chapterUrl)
-	}
-
-	initWH() {
-		if (this.props.status !== 1 || this.isInit) {
-			return;
-		}
-		let imgs = document.getElementsByClassName('page-i');
-		if (imgs.length > 0) {
-			for (let i = 0; i < imgs.length; i++) {
-				imgs[i].style.width = this.width + 'px';
-			}
-			this.isInit = true;
-		}
 	}
 
 	render() {
@@ -147,6 +147,7 @@ function mapStateToProps(state) {
 		prepare: state.pageReducer.prepare,
 		currentIndex: state.pageReducer.currentIndex,
 		shown: state.pageReducer.shown,
+		chapterUrl:state.pageReducer.chapterUrl
 	}
 }
 
@@ -161,6 +162,7 @@ Page.PropTypes = {
 	prepare: PropTypes.bool.isRequired,
 	currentIndex: PropTypes.number,
 	shown: PropTypes.bool.isRequired,
+	chapterUrl:PropTypes.string.isRequired,
 };
 
 Page.defaultProps = {
@@ -174,6 +176,7 @@ Page.defaultProps = {
 	prepare:false,
 	currentIndex:0,
 	shown:false,
+	chapterUrl:''
 }
 
 export default connect(mapStateToProps)(Page);

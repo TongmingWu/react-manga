@@ -5,6 +5,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import configStore from './store/ConfigStore'
+import {openSQLHelper} from './db/DBManager'
 require('./index.less');
 
 const store = configStore();
@@ -51,6 +52,24 @@ const search = (location, callback) => {
 	}, 'Search')
 };
 
+const history = (location, callback) => {
+	require.ensure([], (require) => {
+		callback(null, require("./views/History").default)
+	}, 'History')
+}
+
+const login = (location, callback) => {
+	require.ensure([], (require) => {
+		callback(null, require("./views/Login").default)
+	}, 'Login')
+}
+
+const logon = (location, callback) => {
+	require.ensure([], (require) => {
+		callback(null, require("./views/Logon").default)
+	}, 'Logon')
+}
+
 //路由表
 //按需加载
 render((
@@ -74,6 +93,12 @@ render((
 				<Route path="manga/category/:title/:cid" getComponent={search}/>
 
 				<Route path="manga/search" getComponent={search}/>
+
+				<Route path='manga/history' getComponent={history}/>
+
+				<Route path='manga/login' getComponent={login}/>
+
+				<Route path='manga/logon' getComponent={logon}/>
 			</Route>
 		</Router>
 	</Provider>

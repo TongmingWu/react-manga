@@ -28,7 +28,6 @@ class BaseView extends Component {
 
 	componentWillUnmount() {
 		window.onorientationchange = null;
-		console.log(this.type);
 		const dispatch = this.props.dispatch;
 		switch(this.kind){
 			case HOME:

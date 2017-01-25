@@ -8,6 +8,7 @@ import {
     HOME, CATEGORY, DETAIL, SEARCH, PAGE, COLLECTION, USER,
     CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE,TOOLBAR,INPUT_VALUE,
     BANNER_CHANGED, SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,
+    HISTORY_CHAPTER,HISTORY,
 } from '../constants/Const'
 
 /**
@@ -92,8 +93,8 @@ function shouldFetchData(state, params, dispatch) {
             }
             return state.searchReducer.items !== [] && params.query.page !== state.searchReducer.page;
         case PAGE:
-            if (state.detailReducer.imgs !== undefined) {
-                return state.detailReducer.chapterUrl !== params.query.chapter_url
+            if (state.pageReducer.imgs.length>0) {
+                return state.pageReducer.chapterUrl !== params.query.chapter_url
             }
             break;
         case USER:
@@ -197,6 +198,17 @@ export function updateOpacity(opacity){
     }
 }
 
+
+/**
+ * 记录历史章节
+ */
+export function updateHistoryChapter(url){
+    return{
+        type:HISTORY_CHAPTER,
+        historyUrl:url,
+    }
+}
+
 /**
  * 更新SearchBar
  */
@@ -204,5 +216,15 @@ export function updateSearchBar(inputValue){
     return{
         type:INPUT_VALUE,
         inputValue
+    }
+}
+
+/**
+ * 获取阅读记录
+ */
+export function fetchHistory(items){
+    return{
+        type:HISTORY,
+        items
     }
 }

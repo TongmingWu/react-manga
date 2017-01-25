@@ -4,6 +4,7 @@
  */
 import React, {Component, PropTypes} from 'react'
 import {getScreenWidth} from '../utils'
+import {Link,browserHistory} from 'react-router'
 require('../css/DrawLayout.less');
 export const [CLOSE, RUNNING, OPENED] = [-1, 0, 1];
 export const [LEFT, RIGHT] = [0x01, 0x02];
@@ -92,10 +93,16 @@ class DrawLayout extends Component {
 	}
 
 	handleTouchMove(ev) {
+		// console.log('move')
 	}
 
 	handleTouchEnd(ev) {
+		// console.log(ev)
+	}
 
+	jumpTo(url){
+		console.log(url)
+		browserHistory.push(url)
 	}
 
 	render() {
@@ -118,20 +125,20 @@ class DrawLayout extends Component {
 					<div className="draw-menu">
 						{
 							this.props.menu.map((item, index) => {
-									return <div
-										style={this.props.position===index?{
-											background:'#ccc',
-											color:'#ff960c',
-										}:{}}
-										className='menu-item'>
-										{/*<img className="menu-item-icon" src={item.icon} alt={item.title}/>*/}
-										<div className="menu-item-icon" style={{
-											background: `url(${item.icon}) no-repeat`,
-											backgroundSize: '2.4rem 2.4rem',
-											filter:this.props.position === index?'drop-shadow(3.6rem 0 0 #ff960c)':'drop-shadow(3.6rem 0 0 #aaa)'
-										}}/>
-										<span className="menu-item-title">{item.title}</span>
-									</div>
+									return <Link to={item.url} className='menu-item' onTouchStart={this.jumpTo.bind(this,item.url)}>
+										<div
+											style={this.props.position===index?{
+												background:'#ccc',
+												color:'#ff960c',
+											}:{}}>
+											<div className="menu-item-icon" style={{
+												background: `url(${item.icon}) no-repeat`,
+												backgroundSize: '2.4rem 2.4rem',
+												filter:this.props.position === index?'drop-shadow(3.6rem 0 0 #ff960c)':'drop-shadow(3.6rem 0 0 #aaa)'
+											}}/>
+											<span className="menu-item-title">{item.title}</span>
+										</div>
+									</Link>
 								})
 						}
 					</div>

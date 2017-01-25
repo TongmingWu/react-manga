@@ -7,6 +7,7 @@ import {
 	HOME, SEARCH, CATEGORY, DETAIL, PAGE, COLLECTION, USER,
 	CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE, BANNER_CHANGED,
 	SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,TOOLBAR,INPUT_VALUE,
+	HISTORY_CHAPTER,HISTORY,
 } from '../constants/Const'
 import {OPENED, CLOSE, RUNNING} from '../components/DrawLayout'
 
@@ -168,6 +169,10 @@ function detailReducer(state = {
 			return Object.assign({}, state, {
 				opacity: action.opacity,
 			});
+		case HISTORY_CHAPTER:
+			return Object.assign({}, state, {
+				historyUrl:action.historyUrl,
+			});
 		default:
 			return state;
 	}
@@ -176,9 +181,12 @@ function detailReducer(state = {
 /**
  * view reducer
  */
-function pageReducer(state = {}, action) {
+function pageReducer(state = {
+	imgs:[],
+}, action) {
 	switch (action.type) {
 		case REQUEST_DATA + PAGE:
+			console.log('request page')
 			return Object.assign({}, state, {
 				status: 0,
 				shown: false,
@@ -199,6 +207,8 @@ function pageReducer(state = {}, action) {
 				prepare: action.data.prepare,
 				status: 1,
 				shown: true,
+				comicName:action.data.comic_name,
+				comicSource:action.data.comic_source,
 				chapterUrl: action.data.current_chapter_url,
 			});
 		case REQUEST_FAIL + PAGE:
@@ -213,6 +223,20 @@ function pageReducer(state = {}, action) {
 		case CONTROLLER:
 			return Object.assign({}, state, {
 				shown: action.shown,
+			});
+		default:
+			return state;
+	}
+}
+
+/**
+ * 历史记录
+ */
+function historyReducer(state={},action){
+	switch (action.type) {
+		case HISTORY:
+			return Object.assign({}, state, {
+				items: action.items,
 			});
 		default:
 			return state;
@@ -250,6 +274,7 @@ export default combineReducers({
 	searchReducer,
 	detailReducer,
 	pageReducer,
+	historyReducer,
 	collectionReducer,
 	userReducer
 })

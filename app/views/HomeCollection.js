@@ -19,7 +19,6 @@ class HomeCollection extends BaseView {
 	}
 
 	getData() {
-
 	}
 
 	render() {

@@ -10,8 +10,9 @@ import Loading from '../components/Loading'
 import BaseView from './BaseView';
 import {DETAIL} from '../constants/Const'
 import {connect} from 'react-redux'
-import {fetchDataIfNeed, recordLocation, updateOpacity} from '../actions'
+import {fetchDataIfNeed, recordLocation, updateOpacity,updateHistoryChapter} from '../actions'
 import {getDocumentTop} from '../utils'
+import {recordHistoryComic,selectHistory,openSQLHelper,HISTORY_CHAPTER_TABLE} from '../db/DBManager'
 require('../css/Detail.less');
 
 class Detail extends BaseView {
@@ -24,7 +25,7 @@ class Detail extends BaseView {
 
 	componentDidMount() {
 		super.componentDidMount();
-		this.changeTop(this.props);
+		this.initView(this.props);
 		window.onscroll = ()=>{
 			if(this.props.opacity===1&&top>200){
 				return;
@@ -39,7 +40,9 @@ class Detail extends BaseView {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.changeTop(nextProps)
+		this.initView(nextProps)
+		// if(nextProps.status===1&&nextProps.data!==undefined){
+		// }
 	}
 
 	componentWillUnmount() {
@@ -48,9 +51,10 @@ class Detail extends BaseView {
 		window.onscroll = null;
 	}
 
-	changeTop(props) {
+	initView(props) {
 		if (props.status === 1&&!this.isInit) {
 			document.body.scrollTop = props.localTop;
+			recordHistoryComic(props.data);				
 			this.isInit = true;
 		}
 	}
@@ -61,7 +65,6 @@ class Detail extends BaseView {
 		if (this.comicUrl === undefined) {
 			browserHistory.push('/');
 		} else {
-			console.log('comicUrl = ' + this.comicUrl);
 			const {dispatch}  = this.props;
 			dispatch(fetchDataIfNeed({
 				method: 'GET',
@@ -69,6 +72,12 @@ class Detail extends BaseView {
 				category: DETAIL,
 				query: {comic_url: this.comicUrl}
 			}));
+			//查询历史记录
+			selectHistory(openSQLHelper(),HISTORY_CHAPTER_TABLE,this.comicUrl,(result)=>{
+				//不能直接使用result.rows[i]
+				let historyUrl = result.rows.length>0?result.rows.item(0).chapter_url:'';
+				this.props.dispatch(updateHistoryChapter(historyUrl));
+			})
 		}
 	}
 
@@ -79,7 +88,7 @@ class Detail extends BaseView {
 	}
 
 	collectComic() {
-		console.log('collect');
+		alert('collect');
 	}
 
 	render() {
@@ -94,9 +103,6 @@ class Detail extends BaseView {
 								backgroundSize:'cover',
 							}}/>
 						<div className="info-top">
-							{/*<img className="cover"
-							     src={data.cover == '' ? require('../images/load_error.png') : data.cover}
-								alt={data.comic_name}/>*/}
 							<div className='cover'
 								 style={{
 									 background:`url(${(data.cover == '' ? require('../images/load_error.png') : data.cover)}) 0% 0% / cover`
@@ -106,9 +112,13 @@ class Detail extends BaseView {
 								<span className="span-author">作者：{data.comic_author}</span>
 								<span>状态：{data.status}</span>
 								<span>地区：{data.comic_area}</span>
-								<Button clickEvent={this.startRead.bind(this)}
+								<Button radius='8rem' width='7.2rem' height='3rem'
+										margin='4% 2% 0 2%'
+										onClick={this.startRead.bind(this)}
 								        text="开始阅读"/>
-								<Button clickEvent={this.collectComic.bind(this)} text="收藏"/>
+								<Button radius='8rem' width='7.2rem' height='3rem'
+										margin='4% 2% 0 2%'
+										onClick={this.collectComic.bind(this)} text="收藏"/>
 							</div>
 						</div>
 						<div className="cl-desc">
@@ -122,7 +132,7 @@ class Detail extends BaseView {
 							更新于{data.newest_chapter_date === undefined ? '' : data.newest_chapter_date.split(' ')[0]}
 							</span>
 						</div>
-						<ChapterGrid chapterList={data.chapter_list}/>
+						<ChapterGrid historyUrl={this.props.historyUrl} chapterList={data.chapter_list}/>
 					</div> : <div></div>
 				}
 				<Loading status={status}/>
@@ -136,15 +146,16 @@ Detail.propTypes = {
 	status: PropTypes.number,
 	localTop: PropTypes.number,
 	opacity:PropTypes.number,
+	historyUrl:PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
-	// console.log(state.detailReducer);
 	return {
 		data: state.detailReducer.data,
 		status: state.detailReducer.status,
 		localTop: state.detailReducer.localTop,
 		opacity: state.detailReducer.opacity,
+		historyUrl:state.detailReducer.historyUrl,
 	}
 }
 
