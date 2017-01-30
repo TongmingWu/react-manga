@@ -11,7 +11,7 @@ class Button extends Component {
 
 	render() {
 		return (
-			<div id={this.props.id} onClick={this.props.onClick} className="cus-btn"
+			<div id={this.props.id} onClick={this.props.onClick.bind(this)} className="cus-btn"
 				style={{
 					borderTopLeftRadius:this.props.radius,
 					borderTopRightRadius:this.props.radius,
@@ -37,6 +37,7 @@ Button.PropTypes = {
 	height:PropTypes.string.isRequired,
 	fontSize:PropTypes.string.isRequired,
 	margin:PropTypes.string.isRequired,
+	onClick:PropTypes.func.isRequired,
 };
 
 Button.defaultProps = {
@@ -46,7 +47,8 @@ Button.defaultProps = {
 	width:'',
 	height:'',
 	fontSize:'1.2rem',
-	margin:'0 0 0 0'
+	margin:'0 0 0 0',
+	onClick:()=>{},
 }
 
 export default Button;

@@ -6,6 +6,8 @@ let path = require('path');		//引入node的path库
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 //压缩代码
 let UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+let LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
+let autoprefixer = require('autoprefixer')
 
 // 获取所有的.css文件，合并它们的内容然后提取css内容到一个独立的”styles.css“里
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -25,8 +27,8 @@ let config = {
 		loaders: [
 			//为WebPack指定loaders
 			{
-				test: /\.(less|css|sass)$/,
-				loader: ExtractTextPlugin.extract('style',  ['css-loader','less-loader','postcss']),
+				test: /\.less$/,
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-autoprefixer!postcss-loader'),
 				include: path.resolve(__dirname, 'app')
 			},
 			{
@@ -43,16 +45,16 @@ let config = {
 			},
 		]
 	},
-	postcss: function(webpack){
-		return [require('autoprefixer')];
+	postcss: ()=>{
+		return [autoprefixer({ browsers: ['last 2 versions'] })]
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			favicon: path.resolve(__dirname, 'public/favicon.ico'),
 			template: path.resolve(__dirname, 'public/index.html'),
 		}),
-		new UglifyJsPlugin({minmize: true}),
 		new ExtractTextPlugin("mstatic/css/styles.css"),
+		new UglifyJsPlugin({minmize: true}),
 	],
 };
 

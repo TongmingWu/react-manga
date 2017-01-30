@@ -9,10 +9,6 @@ import {Link} from 'react-router';
 class Banner extends Component {
 	constructor(props) {
 		super(props);
-		//将props转换成自己的state
-		/*this.state = {
-		 currentIndex: 0,
-		 };*/
 		// this.isInit = false;        //是否初始化
 		this.looper = null;
 		this.timer = null;
@@ -20,8 +16,8 @@ class Banner extends Component {
 	}
 
 	componentDidMount() {
-		this.initBanner();
-		this.changeImage();
+		// this.initBanner();
+		// this.changeImage();
 	}
 
 	componentWillUnmount() {
@@ -31,7 +27,7 @@ class Banner extends Component {
 
 	//数据获取完成之后调用
 	componentDidUpdate() {
-		this.initBanner();
+		// this.initBanner();
 		this.changeImage();
 	}
 
@@ -63,28 +59,29 @@ class Banner extends Component {
 	}
 
 	initBanner() {
-		if(!this.props.isInit||this.props.isChange){
-			let imgs = document.getElementsByClassName('banner-img');
-			let width = getScreenWidth();
-			if (imgs.length > 0) {
-				//ios中使用for of 没有效果
-				for (let i = 0; i < imgs.length; i++) {
-					imgs[i].style.width = width + 'px';
-				}
-				// this.isInit = true;
+		let imgs = document.getElementsByClassName('banner-img');
+		let width = getScreenWidth();
+		if (imgs.length > 0) {
+			//ios中使用for of 没有效果
+			for (let i = 0; i < imgs.length; i++) {
+				imgs[i].style.width = width + 'px';
 			}
-			let banner = document.getElementsByClassName('ul-img')[0];
-			if(this.props.currentIndex!==0){
-				banner.style.marginLeft = -(this.width*currentIndex) + 'px'
-			}
+			// this.isInit = true;
 		}
+		this.changeImage();		
 	}
 
 	//banner
 	changeImage() {
+		let width = getScreenWidth();		
+		let banner = document.getElementsByClassName('ul-img')[0];		
+		if(this.looper!==null){
+			window.clearTimeout(this.looper);
+			if(this.props.currentIndex!==0){
+			banner.style.marginLeft = -(width*this.props.currentIndex) + 'px'
+		}
+		}
 		let _this = this;
-		let banner = document.getElementsByClassName('ul-img')[0];
-		window.clearTimeout(this.looper);
 		let currentPos = parseInt(banner.style.marginLeft || 0, 10);
 		let isEnd = _this.width * (_this.props.imgs.length - 1) <= Math.abs(currentPos);
 		this.looper = setTimeout(() => {
@@ -98,8 +95,8 @@ class Banner extends Component {
 				window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 				let animationFrame = requestAnimationFrame(step);
 				function step() {
-					if (count < _this.width) {
-						let offset = 10 > _this.width - count ? _this.width - count : 10;
+					if (count < width) {
+						let offset = 10 > width - count ? width - count : 10;
 						banner.style.marginLeft = ((parseInt(banner.style.marginLeft || 0, 10)) - offset) + 'px';
 						count += offset;
 						animationFrame = requestAnimationFrame(step);

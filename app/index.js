@@ -70,6 +70,12 @@ const logon = (location, callback) => {
 	}, 'Logon')
 }
 
+const user =  (location, callback) => {
+	require.ensure([], (require) => {
+		callback(null, require("./views/UserInfo").default)
+	}, 'User')
+}
+
 //路由表
 //按需加载
 render((
@@ -99,6 +105,8 @@ render((
 				<Route path='manga/login' getComponent={login}/>
 
 				<Route path='manga/logon' getComponent={logon}/>
+
+				<Route path='manga/userinfo' getComponent={user}/>
 			</Route>
 		</Router>
 	</Provider>

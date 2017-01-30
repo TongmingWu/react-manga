@@ -4,6 +4,7 @@
 let webpack = require('webpack');
 let path = require('path');		//引入node的path库
 let HtmlWebpackPlugin = require('html-webpack-plugin');
+let autoprefixer = require('autoprefixer')
 
 let config = {
 	entry: [
@@ -34,8 +35,8 @@ let config = {
 			//为WebPack指定loaders
 			{
 				test: /\.(less|css)$/,
-				// loader: webpack.optimize.ExtractTextPlugin.extract('style-loader',  "css-loader!less-loader"),
-				loaders: ['style', 'css', 'less'],	//执行顺序从右到左
+				loaders: ['style', 'css', 'less','postcss'],	//执行顺序从右到左
+				// loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'postcss-loader', 'less-loader']),
 				include: path.resolve(__dirname, 'app')
 			},
 			{
@@ -50,6 +51,9 @@ let config = {
 				test: /.(png|jpg|svg|webp)$/, loader: "url-loader?limit=8192"
 			},
 		]
+	},
+	postcss: function(){
+		return [autoprefixer({ browsers: ['last 2 versions'] })]
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),

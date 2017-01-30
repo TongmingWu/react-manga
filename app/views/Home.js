@@ -5,7 +5,9 @@ import React, {PropTypes} from 'react'
 import Navigation from '../components/Navigation'
 import HomeMain from './HomeMain'
 import {connect} from 'react-redux'
-import {handleDrawLayout} from '../actions'
+import {handleDrawLayout,fetchDataIfNeed} from '../actions'
+import {getCookies} from '../utils'
+import {USER} from '../constants/Const'
 import DrawLayout, {LEFT, RIGHT, OPENED, CLOSE, RUNNING} from '../components/DrawLayout'
 require('../css/Home.less');
 
@@ -37,6 +39,17 @@ class Home extends React.Component {
 	}
 
 	componentDidMount() {
+		let token = getCookies("token")
+		if(token!==''){
+			this.props.dispatch(fetchDataIfNeed({
+				path:'/user',
+				method:'GET',
+				category:USER,
+				query:{
+					token
+				},
+			}))
+		}
 		this.props.router.setRouteLeaveHook(
 			this.props.route,
 			this.routerWillLeave
@@ -64,9 +77,10 @@ class Home extends React.Component {
 						key: this.props.location.pathname
 					})}
 				</div>
-				<Navigation />
+				<Navigation avatar={this.props.user.avatar} />
 				<DrawLayout
-					menu={this.menu}
+					name={this.props.user.name}
+					menu={this.menu} avatar={this.props.user.avatar}
 					gravity={LEFT} ref="drawLayout" status={this.props.drawStatus}/>
 			</div>
 		)
@@ -75,11 +89,13 @@ class Home extends React.Component {
 
 Home.PropTypes = {
 	drawStatus: PropTypes.number,
+	user:PropTypes.object,
 };
 
 function mapStateToProps(state) {
 	return {
 		drawStatus: state.appReducer.drawStatus,
+		user:state.userReducer.user	
 	}
 }
 

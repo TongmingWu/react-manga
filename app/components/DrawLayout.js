@@ -46,6 +46,7 @@ class DrawLayout extends Component {
 		//速度为加速递减
 		let drawLayout = document.getElementsByClassName('draw-layout-con')[0];
 		let width = getScreenWidth();
+		console.log('width = '+width)
 		let total = (status === OPENED) ? getScreenWidth() : 0;
 		let factor = (status === OPENED) ? -1 : 1;  //表示展开或收起
 		let currentPos = 0;
@@ -66,7 +67,7 @@ class DrawLayout extends Component {
 			if (currentPos < width) {
 				offset = width - currentPos > speed * 24 ? speed * 24 : width - currentPos;
 				currentPos += offset;
-				speed = speed * 0.95;
+				speed = speed * 0.98;	//速度曲线出现问题
 				// console.log(`offset=${offset} speed=${speed}`);
 				if (_this.props.gravity === LEFT) {
 					drawLayout.style.left = factor * (total - currentPos) + 'px';
@@ -106,6 +107,7 @@ class DrawLayout extends Component {
 	}
 
 	render() {
+		//横屏问题
 		return (
 			<div className="draw-layout-con" style={
 				this.props.gravity === LEFT ? {left: '-100%'} :
@@ -114,12 +116,12 @@ class DrawLayout extends Component {
 			     onTouchMove={this.handleTouchMove.bind(this)}
 			     onTouchEnd={this.handleTouchEnd.bind(this)}>
 				<div className="draw-layout" style={{float: this.props.gravity === LEFT ? 'left' : 'right'}}>
-					<div className="draw-layout-head">
+					<div onTouchEnd={this.jumpTo.bind(this,this.props.name===''?'/manga/login':'/manga/userinfo')} className="draw-layout-head">
 						<div className="draw-avatar" style={{
 							background: `url(${this.props.avatar === '' ? `${require('../images/default_avatar.png')}` : this.props.avatar})`
 							, backgroundSize: 'contain'
 						}}>
-							<span className="draw-user-name">{this.props.user===''?'未登录':this.props.user}</span>
+							<span className="draw-user-name">{this.props.name===''?'未登录':this.props.name}</span>
 						</div>
 					</div>
 					<div className="draw-menu">
@@ -155,7 +157,7 @@ DrawLayout.PropTypes = {
 	position: PropTypes.number,
 	menu:PropTypes.array.isRequired,
 	avatar:PropTypes.string.isRequired,
-	user:PropTypes.string.isRequired,
+	name:PropTypes.string.isRequired,
 };
 
 DrawLayout.defaultProps = {
@@ -165,7 +167,7 @@ DrawLayout.defaultProps = {
 	position: 0,
 	menu:[],
 	avatar:'',
-	user:'',
+	name:'',
 };
 
 export default DrawLayout;

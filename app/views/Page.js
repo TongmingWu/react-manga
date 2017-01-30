@@ -16,6 +16,8 @@ class Page extends BaseView {
 	constructor(props) {
 		super(props);
 		this.isInit = false;
+		this.width = getScreenWidth();
+		this.height = getScreenHeight();
 	}
 
 	componentDidMount() {

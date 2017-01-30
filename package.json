@@ -9,10 +9,14 @@
     "test": "mocha --compilers js:babel-register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm test -- --watch"
   },
-  "keywords": ["react","漫画"],
+  "keywords": [
+    "react",
+    "漫画"
+  ],
   "author": "Tongming",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^6.7.0",
     "babel": "^6.5.2",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
@@ -24,6 +28,7 @@
     "html-webpack-plugin": "^2.26.0",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "postcss-import": "^9.1.0",
     "postcss-loader": "^1.2.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

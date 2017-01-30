@@ -13,9 +13,12 @@ class Loading extends Component {
 	render() {
 		return (
 			<div className="loading-con">
-				<img className={!(this.props.status === 1) ? 'loading-img loading-shown' : 'loading-img'}
-				     src={this.props.status === 0 || this.props.status === undefined ? require('../images/loading.svg') :
-					     (this.props.status === 1 ? '' : require('../images/load_error.png'))}/>
+				<img 
+					 style={{
+						 display:this.props.status===1?'none':'visible'
+					 }}
+					 src={this.props.status === 0 ? require('../images/loading.svg') :''}/>
+					    {/*  (this.props.status === -1 ? require('../images/load_error.png') : '')}/>*/}
 			</div>
 		)
 	}
@@ -27,7 +30,7 @@ Loading.PropTypes = {
 };
 
 Loading.defaultProps = {
-	status: 0,
+	status: -3,
 	shown: false,
 }
 

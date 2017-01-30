@@ -7,7 +7,7 @@ import {
 	HOME, SEARCH, CATEGORY, DETAIL, PAGE, COLLECTION, USER,
 	CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE, BANNER_CHANGED,
 	SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,TOOLBAR,INPUT_VALUE,
-	HISTORY_CHAPTER,HISTORY,
+	HISTORY_CHAPTER,HISTORY,LOGIN,LOGON,PHONE,PASSWORD,
 } from '../constants/Const'
 import {OPENED, CLOSE, RUNNING} from '../components/DrawLayout'
 
@@ -258,10 +258,82 @@ function collectionReducer(state = {}, action) {
 /**
  * 用户信息的reducer
  */
-function userReducer(state = {}, action) {
+function userReducer(state = {
+	user:{
+		uid:1,
+		name:'',
+		sex:'',
+		personality:'',
+		phone:'',
+		collection:[],
+		logon_date:0,
+		avatar:''
+	},
+	status:-3,
+}, action) {
 	switch (action.type) {
-		case USER:
-			return state.user = action.user;
+		case REQUEST_DATA + USER:
+			return Object.assign({}, state, {
+				status: 0
+			});
+		case RECEIVE_DATA + USER:
+			return Object.assign({}, state, {
+				user : action.data.user,
+				status: 1,
+			});
+		case REQUEST_FAIL + USER:
+			return Object.assign({}, state, {
+				status: -1
+			});
+		default:
+			return state;
+	}
+}
+
+/**
+ * 登录的reducer
+ */
+function loginReducer(state={
+	data:{
+		code:500,
+	},
+},action){
+	switch (action.type) {
+		case REQUEST_DATA + LOGIN:
+			return Object.assign({}, state, {
+				status: 0
+			});
+		case RECEIVE_DATA + LOGIN:
+			return Object.assign({}, state, {
+				data: action.data,
+				status: 1,
+			});
+		case REQUEST_FAIL + LOGIN:
+			return Object.assign({}, state, {
+				status: -1
+			});
+		case LOGIN + PHONE:
+			return Object.assign({}, state, {
+				phone:action.value,
+			});
+		case LOGIN + PASSWORD:
+			return Object.assign({}, state, {
+				password:action.value,
+			});
+		default:
+			return state;
+	}
+}
+
+/**
+ * 注册的reducer
+ */
+function logonReducer(state={},action){
+	switch (action.type) {
+		case LOGON:
+			return Object.assign({},state,{
+
+			});
 		default:
 			return state;
 	}
@@ -276,5 +348,7 @@ export default combineReducers({
 	pageReducer,
 	historyReducer,
 	collectionReducer,
-	userReducer
+	userReducer,
+	loginReducer,
+	logonReducer,
 })

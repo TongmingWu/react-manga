@@ -12,20 +12,20 @@ require('../css/Home.less');
 class HomeCollection extends BaseView {
 	constructor(props) {
 		super(props);
-		this.state = {
-			status: 0,
-			isCompleted: false,
-		}
 	}
 
 	getData() {
+	}
+
+	componentWillUnmount(){
+
 	}
 
 	render() {
 		return (
 			<div>
 				<h2 style={{textAlign:'center'}}>收藏页面尚未完成</h2>
-				<Loading status={this.state.status} shown={this.state.isCompleted}/>
+				<Loading status={0} shown={false}/>
 			</div>
 		)
 	}

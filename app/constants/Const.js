@@ -22,3 +22,7 @@ export const TOOLBAR = 'TOOLBAR ';
 export const INPUT_VALUE = 'INPUT_VALUE';
 export const HISTORY_CHAPTER = 'HISTORY_CHAPTER';
 export const HISTORY = 'HISTORY';
+export const LOGIN = 'LOGIN';
+export const LOGON = 'LOGON';
+export const PHONE = ' PHONE';
+export const PASSWORD = ' PASSWORD';

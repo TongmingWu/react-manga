@@ -41,8 +41,6 @@ class Detail extends BaseView {
 
 	componentWillReceiveProps(nextProps) {
 		this.initView(nextProps)
-		// if(nextProps.status===1&&nextProps.data!==undefined){
-		// }
 	}
 
 	componentWillUnmount() {
@@ -81,10 +79,18 @@ class Detail extends BaseView {
 		}
 	}
 
+	componentDidUpdate(){
+		super.componentDidUpdate()
+		let btnRead = document.getElementById('btn-read');
+		if(btnRead!==null&&this.props.historyUrl!==''){
+			btnRead.innerText = '继续阅读'
+		}
+	}
+
 	startRead() {
 		browserHistory.push('/manga/page?chapter_url=' +
-			(this.props.data !== undefined ?
-				this.props.data.chapter_list[this.props.data.chapter_list.length - 1].chapter_url : ''))
+			(this.props.historyUrl!==''?this.props.historyUrl:(this.props.data !== undefined ?
+		this.props.data.chapter_list[this.props.data.chapter_list.length - 1].chapter_url : '')))
 	}
 
 	collectComic() {
@@ -112,11 +118,11 @@ class Detail extends BaseView {
 								<span className="span-author">作者：{data.comic_author}</span>
 								<span>状态：{data.status}</span>
 								<span>地区：{data.comic_area}</span>
-								<Button radius='8rem' width='7.2rem' height='3rem'
+								<Button id="btn-read" radius='8rem' width='7.2rem' height='3rem'
 										margin='4% 2% 0 2%'
 										onClick={this.startRead.bind(this)}
 								        text="开始阅读"/>
-								<Button radius='8rem' width='7.2rem' height='3rem'
+								<Button id="btn-collect" radius='8rem' width='7.2rem' height='3rem'
 										margin='4% 2% 0 2%'
 										onClick={this.collectComic.bind(this)} text="收藏"/>
 							</div>
@@ -147,7 +153,7 @@ Detail.propTypes = {
 	localTop: PropTypes.number,
 	opacity:PropTypes.number,
 	historyUrl:PropTypes.string.isRequired,
-};
+}
 
 function mapStateToProps(state) {
 	return {

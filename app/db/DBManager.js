@@ -55,10 +55,8 @@ export function recordHistoryComic(comic){
     })
     .then(isNeed=>{
         if(isNeed){
-            console.log('insert')
             insertHistoryComic(db,comic);
         }else{
-            console.log('update')
             updateHistoryComic(db,comic.comic_url);
         }
     }).catch(error=>{
@@ -73,10 +71,8 @@ export function recordHistoryChapter(chapter){
     })
     .then(isNeed=>{
         if(isNeed){
-            console.log('insert')
             insertHistoryChapter(db,chapter);
         }else{
-            console.log('update')
             updateHistoryChapter(db,chapter);
         }
     }).catch(error=>{
@@ -98,7 +94,7 @@ function insertHistoryComic(db,comic){
         ') values (?,?,?,?,?,?)',
         [comic.comic_name,comic.comic_url,comic.comic_author,comic.comic_source,comic.cover,new Date().getTime()],
         (tx,result)=>{
-            console.log('成功')
+            // console.log('成功')
         },(tx,error)=>{
             console.log(error)
         })
@@ -110,7 +106,7 @@ function updateHistoryComic(db,url){
         tx.executeSql(`update history set last_time=${new Date().getTime()} where comic_url="${url}"`,
         [],
         (tx,result)=>{
-            console.log('成功')
+            // console.log('成功')
         },(tx,error)=>{
             console.log(error)
         })
@@ -155,7 +151,11 @@ export function selectHistory(db,table,url,callback){
 
 export function selectAllHistory(db,table,callback){
     db.transaction(tx=>{
-        tx.executeSql(`select * from ${table}`,[],(tx,result)=>{
+        let sql = `select * from ${table}`
+        if(table===HISTORY_TABLE){
+            sql = `select * from ${table} order by last_time desc`
+        }
+        tx.executeSql(sql,[],(tx,result)=>{
             // console.log(result)
             return callback(result);
         },(tx,error)=>console.log(error))

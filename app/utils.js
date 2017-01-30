@@ -42,7 +42,7 @@ export function readUTF(word) {
 /**
  * 将字典转化为GET中query的模式
  */
-export function dictToString(dict) {
+export function dictToString(dict,split='&') {
 	let result = '';
 	// console.log(dict)
 	for (let key in dict) {
@@ -50,10 +50,25 @@ export function dictToString(dict) {
 			if (result === '') {
 				result = key + '=' + dict[key];
 			} else {
-				result += '&' + key + '=' + dict[key];
+				result += split + key + '=' + dict[key];
 			}
 		} catch (error) {
 			console.log(error);
+		}
+	}
+	return result;
+}
+
+/**
+ * 将字典转化为POST中query json的模式
+ */
+export function dictToJson(dict){
+	let result = '';
+	for(let key in dict){
+		try{
+			result = JSON.stringify(dict);
+		}catch(error){
+			console.log(error)
 		}
 	}
 	return result;
@@ -117,3 +132,47 @@ export function getScrollHeight() {
 	return scrollHeight;
 }
 
+/**
+ * rsa加密
+ */
+export function RSAEncrypt(encryptString){
+	const publicKey ='-----BEGIN PUBLIC KEY-----\
+            MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDxI+LyiBHwTJmb8lFPKrI7etgn\
+            x4Hnyx0WnLLyWmOyJd1dqzxUgfIgM+oIlzYaiet4zcgByqNr5MmgEltgIOJMiU81\
+            fJD+Cmyu54evL9oP7UPULwlWyQZJMxtzGNEeXg92pwmkl399Dyw2dnvt6UA9pI+Y\
+            RYz+/hfNN23OGUUiNQIDAQAB\
+            -----END PUBLIC KEY-----';
+    let encrypt = new JSEncrypt();
+	encrypt.setPublicKey(publicKey);
+    encryptString = encrypt.encrypt(encryptString);
+    return encryptString;
+}
+
+/**
+ * 设置cookies
+ */
+export function setCookies(dict={},days=1){
+	let time = new Date();
+	time.setTime(time.getTime()+(days*24*60*60*1000));
+	dict = dictToString(dict,';')
+	document.cookie = `${dict};expires=${time.toUTCString()}`
+}
+
+/**
+ * 获取cookies
+ */
+export function getCookies(name){
+	let result = '';
+	if(document.cookie.length>0){
+		let start=document.cookie.indexOf(name + "=")//返回某指定值在字符串中首次出现的位置。
+		if (start!=-1)
+		{ 
+		start = start + name.length+1; 
+		let end=document.cookie.indexOf(";",start)//返回';'在字符串中首次出现的位置。
+		if (end ==-1) 
+			end = document.cookie.length;
+			result = unescape(document.cookie.substring(start,end));
+		} 
+	}	
+	return result;
+}

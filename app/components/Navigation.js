@@ -26,8 +26,11 @@ class Navigation extends Component {
 			<div className="nav">
 				<div className="cl-nav" onTouchStart={this.openDrawLayout.bind(this)}>
 					<img className="nav-i" src={require('../images/icon_tab_more.png')} alt="nav"/>
-					<img className="avatar"
-					     src={this.props.avatar === undefined ? require('../images/default_avatar.png') : this.props.avatar}/>
+					<div className="avatar"
+						style={{
+								background: `url(${this.props.avatar === '' ? `${require('../images/default_avatar.png')}` : this.props.avatar})`,
+								backgroundSize: '3rem 3rem'
+							}}/>
 				</div>
 				<div className="cl-tab">
 					<Link to="/manga/home/collection">
@@ -69,6 +72,8 @@ Navigation.PropTypes = {
 	col: PropTypes.string.isRequired,
 	main: PropTypes.string.isRequired,
 	category: PropTypes.string.isRequired,
+	avatar:PropTypes.string.isRequired,
 };
+
 
 export default Navigation;

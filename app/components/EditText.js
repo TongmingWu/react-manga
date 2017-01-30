@@ -14,7 +14,7 @@ class EditText extends React.Component{
         }else{
             del.style.display = 'none';    
         }
-        this.props.onChange(value);
+        this.props.onChange(this,this.props.id,value);
     }
 
     handleClear(ev){
@@ -22,16 +22,17 @@ class EditText extends React.Component{
         let input = document.getElementById(this.props.id).firstChild;
         input.value = '';
         del.style.display = 'none';
-        this.props.onClear();
+        this.props.onClear(ev);
     }
 
     render(){
         return(
             <div id={this.props.id} className='edit-text'>
                 <input type={this.props.type} placeholder={this.props.placeholder}
-                onChange={this.handleChange.bind(this)} name={this.props.name}/>
+                onChange={this.handleChange.bind(this)} name={this.props.name}
+                value={this.props.value}/>
                 <div className='del' style={{
-                    display:'none'
+                    display:this.props.value ===''?'none':'block'
                 }} onTouchEnd={this.handleClear.bind(this)}/>
             </div>
         )
@@ -44,6 +45,7 @@ EditText.PropTypes = {
     placeholder:PropTypes.string.isRequired,
     onChange:PropTypes.func.isRequired,
     onClear:PropTypes.func.isRequired,
+    value:PropTypes.string.isRequired,
 }
 
 EditText.defaultProps = {
@@ -52,6 +54,7 @@ EditText.defaultProps = {
     placeholder:'',
     onChange:(value)=>{},
     onClear:()=>{},
+    value:''
 }
 
 export default EditText;

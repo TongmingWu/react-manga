@@ -8,7 +8,7 @@ import {
     HOME, CATEGORY, DETAIL, SEARCH, PAGE, COLLECTION, USER,
     CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE,TOOLBAR,INPUT_VALUE,
     BANNER_CHANGED, SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,
-    HISTORY_CHAPTER,HISTORY,
+    HISTORY_CHAPTER,HISTORY,LOGIN,LOGON,PHONE,PASSWORD,
 } from '../constants/Const'
 
 /**
@@ -97,8 +97,12 @@ function shouldFetchData(state, params, dispatch) {
                 return state.pageReducer.chapterUrl !== params.query.chapter_url
             }
             break;
+        case LOGIN:
+            break;
+        case LOGON:
+            break;
         case USER:
-            return state.userReducer.data === undefined;
+            return state.userReducer.user.name === '';
     }
     return true;
 }
@@ -226,5 +230,12 @@ export function fetchHistory(items){
     return{
         type:HISTORY,
         items
+    }
+}
+
+export function updateEditText(value,kind){
+    return{
+        type:LOGIN+(kind===0?PHONE:PASSWORD),
+        value
     }
 }
