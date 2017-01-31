@@ -8,10 +8,10 @@ import Button from '../components/Button'
 import ChapterGrid from '../components/ChapterGrid'
 import Loading from '../components/Loading'
 import BaseView from './BaseView';
-import {DETAIL} from '../constants/Const'
+import {DETAIL,COLLECT,DISCOLLECT} from '../constants/Const'
 import {connect} from 'react-redux'
 import {fetchDataIfNeed, recordLocation, updateOpacity,updateHistoryChapter} from '../actions'
-import {getDocumentTop} from '../utils'
+import {getDocumentTop,getCookies} from '../utils'
 import {recordHistoryComic,selectHistory,openSQLHelper,HISTORY_CHAPTER_TABLE} from '../db/DBManager'
 require('../css/Detail.less');
 
@@ -26,6 +26,7 @@ class Detail extends BaseView {
 	componentDidMount() {
 		super.componentDidMount();
 		this.initView(this.props);
+		this.updateBtn();
 		window.onscroll = ()=>{
 			if(this.props.opacity===1&&top>200){
 				return;
@@ -69,6 +70,11 @@ class Detail extends BaseView {
 				path: '/cc/comic/detail',
 				category: DETAIL,
 				query: {comic_url: this.comicUrl}
+			},{
+				method:'GET',
+				path:'/collection',
+				category:DETAIL,
+				query:{uid:getCookies('uid'),name:this.props.location.query.comic_name}
 			}));
 			//查询历史记录
 			selectHistory(openSQLHelper(),HISTORY_CHAPTER_TABLE,this.comicUrl,(result)=>{
@@ -80,10 +86,24 @@ class Detail extends BaseView {
 	}
 
 	componentDidUpdate(){
-		super.componentDidUpdate()
-		let btnRead = document.getElementById('btn-read');
-		if(btnRead!==null&&this.props.historyUrl!==''){
-			btnRead.innerText = '继续阅读'
+		super.componentDidUpdate();
+		this.updateBtn();
+	}
+
+	updateBtn(){
+		if(this.props.status===1){
+			let btnRead = document.getElementById('btn-read');
+			if(btnRead!==null&&this.props.historyUrl!==''){
+				btnRead.innerText = '继续阅读'
+			}
+			let btnCollect = document.getElementById('btn-collect');
+			if(this.props.isCollected){
+				btnCollect.innerText = '已收藏'
+				btnCollect.style.background = 'gray'
+			}else{
+				btnCollect.innerText = '收藏'
+				btnCollect.style.background = '#ff960c'
+			}
 		}
 	}
 
@@ -94,7 +114,43 @@ class Detail extends BaseView {
 	}
 
 	collectComic() {
-		alert('collect');
+		let token = getCookies('token')
+		if(token!==''){
+			const {comic_name,comic_author,comic_source,comic_area,comic_type,
+				comic_url,status,cover} = this.props.data;
+			if(!this.props.isCollected){
+				this.props.dispatch(fetchDataIfNeed({
+					path:'/collection',
+					method:'POST',
+					category:COLLECT,
+					query:{
+						token:token,
+						name:comic_name,
+						author:comic_author,
+						comic_source:comic_source,
+						area:comic_area.trim(),
+						category:comic_type,
+						url:comic_url,
+						status:new RegExp('连载').exec(status).length>0?0:1,
+						cover:cover,
+						last_time:new Date().getTime()
+					}
+				}))
+			}else{
+				this.props.dispatch(fetchDataIfNeed({
+					path:'/collection',
+					method:'DELETE',
+					category:DISCOLLECT,
+					query:{
+						token:token,
+						name:comic_name,
+					}
+				}))
+			}
+			// alert('collect');
+		}else{
+			alert('请先登录')
+		}
 	}
 
 	render() {
@@ -153,6 +209,7 @@ Detail.propTypes = {
 	localTop: PropTypes.number,
 	opacity:PropTypes.number,
 	historyUrl:PropTypes.string.isRequired,
+	isCollected:PropTypes.bool.isRequired,
 }
 
 function mapStateToProps(state) {
@@ -162,6 +219,7 @@ function mapStateToProps(state) {
 		localTop: state.detailReducer.localTop,
 		opacity: state.detailReducer.opacity,
 		historyUrl:state.detailReducer.historyUrl,
+		isCollected:state.detailReducer.isCollected,
 	}
 }
 

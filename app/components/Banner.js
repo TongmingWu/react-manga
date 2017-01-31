@@ -38,7 +38,7 @@ class Banner extends Component {
 					{
 						this.props.imgs.map((item, index) => {
 							return <Link
-								to={{pathname: 'manga/detail', query: {comic_url: item.comic_url}}} key={'img-link-' + index}>
+								to={{pathname: 'manga/detail', query: {comic_url: item.comic_url,comic_name:item.title}}} key={'img-link-' + index}>
 								<li key={'img-li-' + index}>
 									<img className="banner-img" src={item.img} alt={item.title}/>
 								</li>

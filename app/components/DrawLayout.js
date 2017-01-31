@@ -118,7 +118,7 @@ class DrawLayout extends Component {
 				<div className="draw-layout" style={{float: this.props.gravity === LEFT ? 'left' : 'right'}}>
 					<div onTouchEnd={this.jumpTo.bind(this,this.props.name===''?'/manga/login':'/manga/userinfo')} className="draw-layout-head">
 						<div className="draw-avatar" style={{
-							background: `url(${this.props.avatar === '' ? `${require('../images/default_avatar.png')}` : this.props.avatar})`
+							background: `url(${(this.props.avatar === ''||this.props.avatar===null) ? `${require('../images/default_avatar.png')}` : this.props.avatar})`
 							, backgroundSize: 'contain'
 						}}>
 							<span className="draw-user-name">{this.props.name===''?'未登录':this.props.name}</span>

@@ -8,16 +8,17 @@ import {
     HOME, CATEGORY, DETAIL, SEARCH, PAGE, COLLECTION, USER,
     CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE,TOOLBAR,INPUT_VALUE,
     BANNER_CHANGED, SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,
-    HISTORY_CHAPTER,HISTORY,LOGIN,LOGON,PHONE,PASSWORD,
+    HISTORY_CHAPTER,HISTORY,LOGIN,LOGON,PHONE,PASSWORD,COLLECT,
+    DISCOLLECT,CODE_TIMER,
 } from '../constants/Const'
 
 /**
  * 开始请求
  */
-function requestData(params) {
+function requestData(requests) {
     return {
-        type: REQUEST_DATA + params.category,
-        params,
+        type: REQUEST_DATA + requests.category,
+        requests,
     }
 }
 
@@ -25,10 +26,10 @@ function requestData(params) {
  * 接受数据
  * @param json 接受的数据
  */
-function receiveData(params, json) {
+function receiveData(requests, json) {
     return {
-        type: RECEIVE_DATA + params.category,
-        params,
+        type: RECEIVE_DATA + requests.category,
+        requests,
         data: json,
     }
 }
@@ -36,25 +37,26 @@ function receiveData(params, json) {
 /**
  * 请求失败
  */
-function requestFail(params) {
+function requestFail(requests) {
     return {
-        type: REQUEST_FAIL + params.category,
-        params,
+        type: REQUEST_FAIL + requests.category,
+        requests,
     }
 }
 
 /**
  * 发送请求的具体方法
  */
-function fetchData(params) {
+function fetchData(requests) {
     return dispatch => {
-        dispatch(requestData(params));
+        dispatch(requestData(requests[0]));
         return api({
-            method: params.method,
-            path: params.path,
-            query: params.query,
-            onSuccess: json => dispatch(receiveData(params, json)),
-            onFail: error => dispatch(requestFail(params))
+            // method: requests[0].method,
+            // path: requests[0].path,
+            // query: requests[0].query,
+            requests,
+            onSuccess: json => dispatch(receiveData(requests[0], json)),
+            onFail: error => dispatch(requestFail(requests[0]))
         })
     }
 }
@@ -62,11 +64,11 @@ function fetchData(params) {
 /**
  * 判断是否需要获取数据
  * @param state 全局state
- * @param params 参数
+ * @param requests 参数
  * @param dispatch 分发器
  */
-function shouldFetchData(state, params, dispatch) {
-    switch (params.category) {
+function shouldFetchData(state, requests, dispatch) {
+    switch (requests[0].category) {
         case HOME:
             return state.homeReducer.data === undefined;
         case CATEGORY:
@@ -75,7 +77,7 @@ function shouldFetchData(state, params, dispatch) {
             return state.collectionReducer.data === undefined;
         case DETAIL:
             if (state.detailReducer.data !== undefined) {
-                if (state.detailReducer.data.comic_url === params.query.comic_url) {
+                if (state.detailReducer.data.comic_url === requests[0].query.comic_url) {
                     return false;
                 }
                 dispatch(recordLocation(0, DETAIL));
@@ -84,17 +86,17 @@ function shouldFetchData(state, params, dispatch) {
             break;
         case SEARCH:
             let reg = new RegExp('(.*)&');
-            let isChange = reg.exec(dictToString(params.query))[1] !==
+            let isChange = reg.exec(dictToString(requests[0].query))[1] !==
                 (state.searchReducer.query === undefined ? '' : reg.exec(dictToString(state.searchReducer.query))[1]);
             if (isChange) {
                 dispatch(searchChange());
                 dispatch(recordLocation(0, SEARCH));
                 return true;
             }
-            return state.searchReducer.items !== [] && params.query.page !== state.searchReducer.page;
+            return state.searchReducer.items !== [] && requests[0].query.page !== state.searchReducer.page;
         case PAGE:
             if (state.pageReducer.imgs.length>0) {
-                return state.pageReducer.chapterUrl !== params.query.chapter_url
+                return state.pageReducer.chapterUrl !== requests[0].query.chapter_url
             }
             break;
         case LOGIN:
@@ -102,9 +104,28 @@ function shouldFetchData(state, params, dispatch) {
         case LOGON:
             break;
         case USER:
-            return state.userReducer.user.name === '';
+            // return state.userReducer.user.name === '';
+            break;
+        case COLLECT:
+            break;
+        case DISCOLLECT:
+            break;
+        default:
+            break;
     }
     return true;
+}
+
+/**
+ * 如果需要则开始获取数据
+ * @param requests 参数
+ */
+export function fetchDataIfNeed(...requests) {
+    return (dispatch, getState) => {
+        if (shouldFetchData(getState(), requests, dispatch)) {
+            return dispatch(fetchData(requests))
+        }
+    }
 }
 
 /**
@@ -113,18 +134,6 @@ function shouldFetchData(state, params, dispatch) {
 function searchChange() {
     return {
         type: SEARCH_CHANGE
-    }
-}
-
-/**
- * 如果需要则开始获取数据
- * @param params 参数
- */
-export function fetchDataIfNeed(params) {
-    return (dispatch, getState) => {
-        if (shouldFetchData(getState(), params, dispatch)) {
-            return dispatch(fetchData(params))
-        }
     }
 }
 
@@ -235,7 +244,15 @@ export function fetchHistory(items){
 
 export function updateEditText(value,kind){
     return{
-        type:LOGIN+(kind===0?PHONE:PASSWORD),
+        type:kind,
         value
+    }
+}
+
+export function codeTimer(value,end){
+    return{
+        type:CODE_TIMER,
+        value,
+        end,
     }
 }

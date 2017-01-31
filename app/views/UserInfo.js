@@ -36,11 +36,13 @@ class UserInfo extends BaseView{
         return(
             <div>
                 <Toolbar title='用户中心' />
-                <div className='container'>
+                <div style={{
+                    display:this.props.status===1?'flex':'none'
+                }} className='container'>
                     <div className='item side'>
                         <span className='item-name'>头像</span>
-                        <div className='avatar'>
-                            <img src={this.props.user.avatar}/>
+                        <div className='info-avatar'>
+                            <img src={this.props.user.avatar===null?require('../images/default_avatar.png'):this.props.user.avatar}/>
                         </div>
                     </div>
                     <div className='item'>
@@ -59,9 +61,10 @@ class UserInfo extends BaseView{
                         <span className='item-name'>个性签名</span>
                         <span className='item-info'>{this.props.user.pesonality}</span>
                     </div>
-                </div>
-                <Button id='btn-logout' text='注销' width='90%' height='4rem'
+                    <Button id='btn-logout' text='注销' width='90%' height='4rem'
                             margin='5% 5% 5% 5%' radius='.5rem' onClick={this.logout}/>
+                </div>
+                
                 <Loading status={this.props.status}/>
             </div>
         )

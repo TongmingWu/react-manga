@@ -6,7 +6,7 @@ import Navigation from '../components/Navigation'
 import HomeMain from './HomeMain'
 import {connect} from 'react-redux'
 import {handleDrawLayout,fetchDataIfNeed} from '../actions'
-import {getCookies} from '../utils'
+import {getCookies,setCookies} from '../utils'
 import {USER} from '../constants/Const'
 import DrawLayout, {LEFT, RIGHT, OPENED, CLOSE, RUNNING} from '../components/DrawLayout'
 require('../css/Home.less');
@@ -54,6 +54,17 @@ class Home extends React.Component {
 			this.props.route,
 			this.routerWillLeave
 		);
+	}
+
+	componentDidUpdate(){
+		if(getCookies('uid')===''&&this.props.user.uid!==0){
+			// document.cookie = `uid=${this.props.user.uid}`
+			// document.cookie = `name=${this.props.user.name}`
+			setCookies({
+				uid:this.props.user.uid,
+				name:this.props.user.name,
+			})
+		}
 	}
 
 	routerWillLeave() {

@@ -28,7 +28,7 @@ class Navigation extends Component {
 					<img className="nav-i" src={require('../images/icon_tab_more.png')} alt="nav"/>
 					<div className="avatar"
 						style={{
-								background: `url(${this.props.avatar === '' ? `${require('../images/default_avatar.png')}` : this.props.avatar})`,
+								background: `url(${(this.props.avatar === ''||this.props.avatar===null) ? `${require('../images/default_avatar.png')}` : this.props.avatar})`,
 								backgroundSize: '3rem 3rem'
 							}}/>
 				</div>

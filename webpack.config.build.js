@@ -28,7 +28,7 @@ let config = {
 			//为WebPack指定loaders
 			{
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-autoprefixer!postcss-loader'),
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader!postcss-loader'),
 				include: path.resolve(__dirname, 'app')
 			},
 			{

@@ -8,6 +8,7 @@ import {
 	CHANGE_PAGE, CONTROLLER, SEARCH_CHANGE, BANNER_CHANGED,
 	SCROLL_BAR, INIT_IMAGE, DRAW_LAYOUT,TOOLBAR,INPUT_VALUE,
 	HISTORY_CHAPTER,HISTORY,LOGIN,LOGON,PHONE,PASSWORD,
+	COLLECT,DISCOLLECT,PASSWORD_CONFIRM,CODE,CODE_TIMER,
 } from '../constants/Const'
 import {OPENED, CLOSE, RUNNING} from '../components/DrawLayout'
 
@@ -105,8 +106,8 @@ function searchReducer(state = {
 		case REQUEST_DATA + SEARCH:
 			return Object.assign({}, state, {
 				status: 0,
-				query: action.params.query,
-				title: action.params.title,
+				query: action.requests.query,
+				title: action.requests.title,
 			});
 		case RECEIVE_DATA + SEARCH:
 			return Object.assign({}, state, {
@@ -144,7 +145,7 @@ function searchReducer(state = {
  * 详情页的reducer
  */
 function detailReducer(state = {
-	localTop: 0, status: 0, opacity:0,
+	localTop: 0, status: 0, opacity:0,isCollected:false,
 }, action) {
 	switch (action.type) {
 		case REQUEST_DATA + DETAIL:
@@ -153,7 +154,8 @@ function detailReducer(state = {
 			});
 		case RECEIVE_DATA + DETAIL:
 			return Object.assign({}, state, {
-				data: action.data,
+				data: action.data[0],
+				isCollected:action.data[1].code===200,
 				status: 1,
 			});
 		case REQUEST_FAIL + DETAIL:
@@ -172,6 +174,14 @@ function detailReducer(state = {
 		case HISTORY_CHAPTER:
 			return Object.assign({}, state, {
 				historyUrl:action.historyUrl,
+			});
+		case RECEIVE_DATA + COLLECT:
+			return Object.assign({}, state, {
+				isCollected : true,
+			});
+		case RECEIVE_DATA + DISCOLLECT:
+			return Object.assign({}, state, {
+				isCollected : false,
 			});
 		default:
 			return state;
@@ -260,7 +270,7 @@ function collectionReducer(state = {}, action) {
  */
 function userReducer(state = {
 	user:{
-		uid:1,
+		uid:0,
 		name:'',
 		sex:'',
 		personality:'',
@@ -328,12 +338,46 @@ function loginReducer(state={
 /**
  * 注册的reducer
  */
-function logonReducer(state={},action){
+function logonReducer(state={
+	data:{
+		code:500,
+	},
+},action){
 	switch (action.type) {
-		case LOGON:
-			return Object.assign({},state,{
-
+		case REQUEST_DATA + LOGON:
+			return Object.assign({}, state, {
+				status: 0
 			});
+		case RECEIVE_DATA + LOGON:
+			return Object.assign({}, state, {
+				data: action.data,
+				status: 1,
+			});
+		case REQUEST_FAIL + LOGON:
+			return Object.assign({}, state, {
+				status: -1
+			});
+		case LOGON + PHONE:
+			return Object.assign({}, state, {
+				phone:action.value,
+			});
+		case LOGON + PASSWORD:
+			return Object.assign({}, state, {
+				password:action.value,
+			});
+		case LOGON + PASSWORD_CONFIRM:
+			return Object.assign({}, state, {
+				cpassword:action.value,
+			});
+		case LOGON + CODE:
+			return Object.assign({}, state, {
+				code:action.value,
+			});
+		case CODE_TIMER:
+			return Object.assign({},state,{
+				codeText:action.value,
+				end:action.end,
+			})
 		default:
 			return state;
 	}

@@ -8,7 +8,7 @@ import EditText from '../components/EditText'
 import {RSAEncrypt,setCookies} from '../utils'
 import {fetchDataIfNeed,updateEditText} from '../actions'
 import Loading from '../components/Loading'
-import {LOGIN,PHONE} from '../constants/Const'
+import {LOGIN,PHONE,PASSWORD} from '../constants/Const'
 
 require('../css/Login.less')
 
@@ -27,22 +27,17 @@ class Login extends BaseView{
 
     componentWillReceiveProps(nextProps){
         if(nextProps.status===1){
-            let reducer = this._reactInternalInstance._context.store.getState().loginReducer;
-            let data = reducer.data;
-            let status = reducer.status;
-            if(status===1){
-                if(data.code===200){
+            if(nextProps.data.code===200){
                     console.log('登录成功')
                     //保存cookies
                     setCookies({
-                        token:data.token
+                        token:nextProps.data.token,
                     })
                     browserHistory.replace('/')
                 }else{
                     console.log('登录失败')
                     // this.props.dispatch(updateEditText('',1))
                 }
-            }
         }
     }
 
@@ -87,13 +82,13 @@ class Login extends BaseView{
     }
 
     handleChange(child,id,value){
-        let kind = 0;
+        let kind = LOGIN;
         switch(id){
             case 'et-phone':
-                kind = 0
+                kind += PHONE
                 break;
             case 'et-pwd':
-                kind = 1
+                kind += PASSWORD
                 break;
         }
         let parent = child._reactInternalInstance._currentElement._owner._instance
@@ -109,8 +104,8 @@ class Login extends BaseView{
                 }}/>
                 <div onKeyDown={this.handleKeyDown.bind(this)} className='login-con'>
                     <div className='logo'/>
-                    <EditText value={this.props.phone} onChange={this.handleChange} id='et-phone' type='number' placeholder='手机号码' name='phone'/>
-                    <EditText value={this.props.password} onChange={this.handleChange} id='et-pwd' type='password' placeholder='请输入您的密码' name='pwd'/>
+                    <EditText margin='.2rem 0 0 0' value={this.props.phone} onChange={this.handleChange} id='et-phone' type='number' placeholder='手机号码' name='phone'/>
+                    <EditText margin='.2rem 0 0 0' value={this.props.password} onChange={this.handleChange} id='et-pwd' type='password' placeholder='请输入您的密码' name='pwd'/>
                     <div style={{
                         paddingTop:'1rem'
                     }}/>

@@ -22,6 +22,7 @@ class Button extends Component {
 					lineHeight:this.props.height,
 					fontSize:this.props.fontSize,
 					margin:this.props.margin,
+					background:this.props.background
 				}}>
 				{this.props.text}
 			</div>
@@ -38,6 +39,7 @@ Button.PropTypes = {
 	fontSize:PropTypes.string.isRequired,
 	margin:PropTypes.string.isRequired,
 	onClick:PropTypes.func.isRequired,
+	background:PropTypes.string.isRequired,
 };
 
 Button.defaultProps = {
@@ -49,6 +51,7 @@ Button.defaultProps = {
 	fontSize:'1.2rem',
 	margin:'0 0 0 0',
 	onClick:()=>{},
+	background:'#ff960c'
 }
 
 export default Button;

@@ -23,7 +23,7 @@ class ComicGrid extends Component {
 				{
 					this.props.comics.map((item) => {
 							return <Link key={item.comic_url}
-							             to={{pathname: '/manga/detail', query: {comic_url: item.comic_url}}}>
+							             to={{pathname: '/manga/detail', query: {comic_url: item.comic_url,comic_name:item.comic_name}}}>
 								<ComicItem comic={item}/>
 							</Link>
 						})

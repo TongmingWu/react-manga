@@ -64,12 +64,10 @@ export function dictToString(dict,split='&') {
  */
 export function dictToJson(dict){
 	let result = '';
-	for(let key in dict){
-		try{
+	try{
 			result = JSON.stringify(dict);
 		}catch(error){
 			console.log(error)
-		}
 	}
 	return result;
 }
@@ -154,8 +152,9 @@ export function RSAEncrypt(encryptString){
 export function setCookies(dict={},days=1){
 	let time = new Date();
 	time.setTime(time.getTime()+(days*24*60*60*1000));
-	dict = dictToString(dict,';')
-	document.cookie = `${dict};expires=${time.toUTCString()}`
+	for(let key in dict){
+		document.cookie = `${key}=${dict[key]}; expires=${time.toUTCString()}`
+	}
 }
 
 /**
@@ -175,4 +174,17 @@ export function getCookies(name){
 		} 
 	}	
 	return result;
+}
+
+/**
+ * 手机格式正则
+ * ^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\\d{8}$
+ */
+export function checkPhone(phone){
+	if(phone===''){
+		return false;
+	}
+	let reg = new RegExp('^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\\d{8}$')
+	let result = reg.exec(phone)
+	return result.length>0;
 }

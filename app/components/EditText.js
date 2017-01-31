@@ -27,7 +27,10 @@ class EditText extends React.Component{
 
     render(){
         return(
-            <div id={this.props.id} className='edit-text'>
+            <div id={this.props.id} className='edit-text' style={{
+                width:this.props.width,
+                margin:this.props.margin,
+            }}>
                 <input type={this.props.type} placeholder={this.props.placeholder}
                 onChange={this.handleChange.bind(this)} name={this.props.name}
                 value={this.props.value}/>
@@ -46,6 +49,8 @@ EditText.PropTypes = {
     onChange:PropTypes.func.isRequired,
     onClear:PropTypes.func.isRequired,
     value:PropTypes.string.isRequired,
+    width:PropTypes.string.isRequired,
+    margin:PropTypes.string.isRequired,
 }
 
 EditText.defaultProps = {
@@ -54,7 +59,9 @@ EditText.defaultProps = {
     placeholder:'',
     onChange:(value)=>{},
     onClear:()=>{},
-    value:''
+    value:'',
+    width:'96%',
+    margin:'0 0 0 0'
 }
 
 export default EditText;
