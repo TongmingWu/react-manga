@@ -8,7 +8,6 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 let LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
 let autoprefixer = require('autoprefixer')
-let precss = require('precss');
 
 // 获取所有的.css文件，合并它们的内容然后提取css内容到一个独立的”styles.css“
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -52,7 +51,7 @@ let config = {
 			},
 		]
 	},
-	postcss: [autoprefixer(),precss()],
+	postcss: [autoprefixer()],
 	plugins: [
 		new HtmlWebpackPlugin({
 			favicon: path.resolve(__dirname, 'public/favicon.ico'),

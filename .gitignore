@@ -14,3 +14,5 @@ coverage
 .env
 npm-debug.log
 /.vscode
+/.idea
+/.idea

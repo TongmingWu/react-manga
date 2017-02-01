@@ -5,7 +5,6 @@ let webpack = require('webpack');
 let path = require('path');		//引入node的path库
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let autoprefixer = require('autoprefixer')
-let precss = require('precss');
 
 let config = {
 	entry: [
@@ -54,7 +53,7 @@ let config = {
 		]
 	},
 	postcss: function(){
-		return [autoprefixer({ browsers: ['last 2 versions'] }),precss()]
+		return [autoprefixer({ browsers: ['last 2 versions'] })]
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
