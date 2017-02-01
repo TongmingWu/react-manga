@@ -11,7 +11,7 @@ if(!window.Promise){
 	}
 
 let baseUrl = 'http://119.29.57.187/api';
-// let baseUrl = 'http://127.0.0.1:5000/api';
+// let baseUrl = 'http://192.168.1.103:5000/api';
 
 let data = {
 		headers:{

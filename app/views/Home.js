@@ -57,14 +57,10 @@ class Home extends React.Component {
 	}
 
 	componentDidUpdate(){
-		if(getCookies('uid')===''&&this.props.user.uid!==0){
-			// document.cookie = `uid=${this.props.user.uid}`
-			// document.cookie = `name=${this.props.user.name}`
-			setCookies({
+		setCookies({
 				uid:this.props.user.uid,
 				name:this.props.user.name,
 			})
-		}
 	}
 
 	routerWillLeave() {
@@ -80,6 +76,7 @@ class Home extends React.Component {
 	}
 
 	render() {
+		// alert(this.props.user.name)
 		return (
 			<div>
 				<div

@@ -8,8 +8,9 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 let LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
 let autoprefixer = require('autoprefixer')
+let precss = require('precss');
 
-// 获取所有的.css文件，合并它们的内容然后提取css内容到一个独立的”styles.css“里
+// 获取所有的.css文件，合并它们的内容然后提取css内容到一个独立的”styles.css“
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let config = {
@@ -28,7 +29,7 @@ let config = {
 			//为WebPack指定loaders
 			{
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader!postcss-loader'),
+				loader: ExtractTextPlugin.extract(["style-loader", "css-loader!less-loader!postcss-loader"]),
 				include: path.resolve(__dirname, 'app')
 			},
 			{
@@ -40,21 +41,31 @@ let config = {
 				}
 			},
 			{
+				// I want to uglify with mangling only app files, not thirdparty libs
+				test: /.*\/app\/.*\.js$/,
+				exclude: /.spec.js/, // excluding .spec files
+				loader: "uglify"
+			},
+			{
 				test: /.(png|jpg|jpeg|gif|svg|webp)$/, 
 				loader: "url-loader?limit=30720"
 			},
 		]
 	},
-	postcss: ()=>{
-		return [autoprefixer({ browsers: ['last 2 versions'] })]
-	},
+	postcss: [autoprefixer(),precss()],
 	plugins: [
 		new HtmlWebpackPlugin({
 			favicon: path.resolve(__dirname, 'public/favicon.ico'),
 			template: path.resolve(__dirname, 'public/index.html'),
 		}),
 		new ExtractTextPlugin("mstatic/css/styles.css"),
-		new UglifyJsPlugin({minmize: true}),
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production')
+			}
+		}),
+		// new UglifyJsPlugin({minmize: true}),
+		// new UglifyJsPlugin(),
 	],
 };
 

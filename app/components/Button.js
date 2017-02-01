@@ -2,7 +2,7 @@
  * Created by Tongming on 2017/1/1.
  */
 import React, {Component, PropTypes} from 'react';
-require('../css/Button.less');
+require('...css/Button.less');
 
 class Button extends Component {
 	constructor(props) {

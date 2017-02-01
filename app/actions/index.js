@@ -24,7 +24,7 @@ function requestData(requests) {
 
 /**
  * 接受数据
- * @param json 接受的数据
+ * $param json 接受的数据
  */
 function receiveData(requests, json) {
     return {
@@ -63,9 +63,9 @@ function fetchData(requests) {
 
 /**
  * 判断是否需要获取数据
- * @param state 全局state
- * @param requests 参数
- * @param dispatch 分发器
+ * $param state 全局state
+ * $param requests 参数
+ * $param dispatch 分发器
  */
 function shouldFetchData(state, requests, dispatch) {
     switch (requests[0].category) {
@@ -118,7 +118,7 @@ function shouldFetchData(state, requests, dispatch) {
 
 /**
  * 如果需要则开始获取数据
- * @param requests 参数
+ * $param requests 参数
  */
 export function fetchDataIfNeed(...requests) {
     return (dispatch, getState) => {
@@ -139,7 +139,7 @@ function searchChange() {
 
 /**
  * 监听page
- * @param currentIndex 阅读位置
+ * $param currentIndex 阅读位置
  */
 export function changePage(currentIndex) {
     return {
@@ -150,7 +150,7 @@ export function changePage(currentIndex) {
 
 /**
  * 控制面板的显示隐藏
- * @param shown 显示隐藏
+ * $param shown 显示隐藏
  */
 export function handleController(shown) {
     return {
@@ -160,7 +160,7 @@ export function handleController(shown) {
 }
 /**
  * 监听banner
- * @param currentIndex banner位置
+ * $param currentIndex banner位置
  */
 export function onLoop(currentIndex) {
     return {
@@ -171,8 +171,8 @@ export function onLoop(currentIndex) {
 
 /**
  * 记录滚动条滚动的位置
- * @param localTop 位置信息
- * @param type 指定页面
+ * $param localTop 位置信息
+ * $param type 指定页面
  */
 export function recordLocation(localTop, type) {
     return {

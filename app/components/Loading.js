@@ -11,12 +11,12 @@ class Loading extends Component {
 	}
 
 	render() {
-		return (
+		return this.props.status===0?(
 			<div className="loading-con">
-				<img src={this.props.status === 0 ? require('../images/loading.svg') :''}/>
+				<img src={require('../images/loading.svg')}/>
 					    {/*  (this.props.status === -1 ? require('../images/load_error.png') : '')}/>*/}
 			</div>
-		)
+		):null
 	}
 }
 

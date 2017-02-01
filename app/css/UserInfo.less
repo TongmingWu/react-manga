@@ -1,6 +1,6 @@
-@item-height:3.6rem;
-@side-height:6rem;
-@avatar-size:4.8rem;
+$item-height:3.6rem;
+$side-height:6rem;
+$avatar-size:4.8rem;
 
 .container{
     width: 100%;
@@ -13,8 +13,8 @@
     
     .item{
         width: 100%;
-        height: @item-height;
-        line-height: @item-height;
+        height: $item-height;
+        line-height: $item-height;
         padding: .5rem .8rem;
         margin-bottom: .1rem;
         background: white;   
@@ -37,9 +37,9 @@
             display: inline-block;
             text-align: right;
             img{
-                width: @avatar-size;
-                height: @avatar-size;
-                border-radius: @avatar-size/2;
+                width: $avatar-size;
+                height: $avatar-size;
+                border-radius: $avatar-size/2;
                 display: inline-block;
                 margin-top: .6rem;
             }
@@ -48,8 +48,8 @@
     }
 
     .side{
-        height: @side-height;
-        line-height: @side-height;
+        height: $side-height;
+        line-height: $side-height;
         margin-bottom: .8rem;
         margin-top: .8rem;
     }
