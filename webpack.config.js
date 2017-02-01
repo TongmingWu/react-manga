@@ -35,7 +35,7 @@ let config = {
 			//为WebPack指定loaders
 			{
 				test: /\.(less|css)$/,
-				loaders: ['style', 'css', 'less','postcss'],	//执行顺序从右到左
+				loaders: ['style', 'css', 'less'],	//执行顺序从右到左
 				// loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'postcss-loader', 'less-loader']),
 				include: path.resolve(__dirname, 'app')
 			},

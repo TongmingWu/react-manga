@@ -1,7 +1,7 @@
 /**
  * Created by Tongming on 2016/12/26.
  */
-require('..css/Banner.less');
+require('../css/Banner.less');
 import React, {Component, PropTypes} from 'react';
 import {getScreenWidth} from '../utils'
 import {Link} from 'react-router';
