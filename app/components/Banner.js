@@ -38,7 +38,10 @@ class Banner extends Component {
 					{
 						this.props.imgs.map((item, index) => {
 							return <Link
-								to={{pathname: 'manga/detail', query: {comic_url: item.comic_url,comic_name:item.title}}} key={'img-link-' + index}>
+								to={{
+									pathname: 'manga/detail',
+									query: {comic_url: item.comic_url, comic_name: item.title}
+								}} key={'img-link-' + index}>
 								<li key={'img-li-' + index}>
 									<img className="banner-img" src={item.img} alt={item.title}/>
 								</li>
@@ -68,18 +71,18 @@ class Banner extends Component {
 			}
 			// this.isInit = true;
 		}
-		this.changeImage();		
+		this.changeImage();
 	}
 
 	//banner
 	changeImage() {
-		let width = getScreenWidth();		
-		let banner = document.getElementsByClassName('ul-img')[0];		
-		if(this.looper!==null){
+		let width = getScreenWidth();
+		let banner = document.getElementsByClassName('ul-img')[0];
+		if (this.looper !== null) {
 			window.clearTimeout(this.looper);
-			if(this.props.currentIndex!==0){
-			banner.style.marginLeft = -(width*this.props.currentIndex) + 'px'
-		}
+			if (this.props.currentIndex !== 0) {
+				banner.style.marginLeft = -(width * this.props.currentIndex) + 'px'
+			}
 		}
 		let _this = this;
 		let currentPos = parseInt(banner.style.marginLeft || 0, 10);
@@ -94,6 +97,7 @@ class Banner extends Component {
 				let count = 0;
 				window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 				let animationFrame = requestAnimationFrame(step);
+
 				function step() {
 					if (count < width) {
 						let offset = 10 > width - count ? width - count : 10;
@@ -115,7 +119,7 @@ Banner.PropTypes = {
 };
 
 Banner.defaultProps = {
-	imgs:[],
+	imgs: [],
 }
 
 export default Banner;

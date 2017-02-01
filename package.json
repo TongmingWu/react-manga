@@ -37,6 +37,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "promise-polyfill": "^6.0.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
