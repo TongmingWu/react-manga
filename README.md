@@ -44,15 +44,15 @@ npm run build
 </code></pre>
 
 ### 截图预览
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/首页.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/首页1.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/分类.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/收藏.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/搜索.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/注册.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/登录.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/详情页.jpg?raw=true" width="200"/>
-<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/阅读.jpg?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/首页.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/首页1.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/分类.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/收藏.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/搜索.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/注册.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/登录.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/详情页.JPG?raw=true" width="200"/>
+<img src="https://github.com/TongmingWu/react-manga/blob/master/screenshot/阅读.JPG?raw=true" width="200"/>
 
 
 
