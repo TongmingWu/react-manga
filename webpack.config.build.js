@@ -18,7 +18,7 @@ let config = {
 	],	//入口文件
 	output: {
 		path: path.resolve(__dirname, 'dist'),	//编译后的位置
-		filename: 'mstatic/js/bundle.min.js',
+		filename: 'mstatic/js/bundle.[chunkhash:10].min.js',
 		chunkFilename: 'mstatic/js/[name].[chunkhash:5].chunk.js',
 		publicPath: '/',
 	},
@@ -27,7 +27,7 @@ let config = {
 			//为WebPack指定loaders
 			{
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract(("style-loader", "css-loader!less-loader")),
+				loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'postcss-loader', 'less-loader']),
 				include: path.resolve(__dirname, 'app')
 			},
 			{
