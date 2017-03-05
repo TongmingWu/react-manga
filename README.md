@@ -3,9 +3,6 @@
   等功能.另外安卓版的Manga [点击这里](https://github.com/TongmingWu/Manga)**
 <br/>
 
-###项目演示地址
-[点击这里](http://119.29.57.187)(请使用手机打开或者将开发者工具调整为手机模式)
-
 ### 使用
 <pre><code>
 //默认地址为http://localhost:9000
